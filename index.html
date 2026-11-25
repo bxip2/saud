@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>مرافق</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: phone-first app shell for drivers and attendants of disability transport vehicles: sticky brand bar, scrolling view, fixed 5-tab bar. Deep accessibility blue with mint surfaces; amber only for highlights; red reserved for emergencies. */
+:root {
+  --bg: #E8EDF3;
+  --shell: #F5F8FB;
+  --surface: #FFFFFF;
+  --surface-2: #EDF2F8;
+  --fg: #0F1E33;
+  --muted: #4A5A70;
+  --line: #D2DCE8;
+  --brand: #1D4E89;
+  --brand-2: #2A66AE;
+  --brand-soft: #DCE7F5;
+  --on-brand: #FFFFFF;
+  --amber: #8F5609;
+  --amber-soft: #FAEBD2;
+  --danger: #B0281B;
+  --danger-soft: #FCE5E1;
+  --ok: #1D6B3A;
+  --ok-soft: #DDF1E3;
+  --shadow: 0 1px 2px rgba(15,30,51,.06), 0 6px 18px rgba(15,30,51,.06);
+  --display: 'El Messiri', 'IBM Plex Sans Arabic', Tahoma, serif;
+  --body: 'IBM Plex Sans Arabic', Tahoma, 'Segoe UI', sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #070D16; --shell: #0B1420; --surface: #121F31; --surface-2: #17283E; --fg: #E6EEF8; --muted: #9FB0C6; --line: #25384F;
+    --brand: #5B95D8; --brand-2: #78ABE6; --brand-soft: #18304F; --on-brand: #06121F; --amber: #EFB65C; --amber-soft: #3A2A12;
+    --danger: #FF8E80; --danger-soft: #3E1712; --ok: #7FD69B; --ok-soft: #173622; --shadow: none; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #070D16; --shell: #0B1420; --surface: #121F31; --surface-2: #17283E; --fg: #E6EEF8; --muted: #9FB0C6; --line: #25384F;
+  --brand: #5B95D8; --brand-2: #78ABE6; --brand-soft: #18304F; --on-brand: #06121F; --amber: #EFB65C; --amber-soft: #3A2A12;
+  --danger: #FF8E80; --danger-soft: #3E1712; --ok: #7FD69B; --ok-soft: #173622; --shadow: none; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { background: var(--bg); color: var(--fg); }
+body { font-family: var(--body); font-size: 16px; line-height: 1.6; margin: 0; padding-inline: 0; padding-block: 0; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--amber); outline-offset: 2px; }
+.app { max-width: 520px; margin-inline: auto; min-height: 100vh; background: var(--shell); display: flex; flex-direction: column; position: relative; }
+body.large .app { zoom: 1.16; }
+@media (min-width: 640px) { .app { margin-block: 24px; min-height: calc(100vh - 48px); border-radius: 28px; overflow: hidden; box-shadow: 0 20px 60px rgba(15,30,51,.18); border: 1px solid var(--line); } }
+
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; background: color-mix(in srgb, var(--shell) 88%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.brand { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.logo { width: 40px; height: 40px; border-radius: 12px; background: linear-gradient(145deg, #2A66AE, #1D4E89); display: grid; place-items: center; flex: none; }
+.brand b { display: block; font-family: var(--display); font-size: 20px; line-height: 1.15; }
+.brand small { display: block; font-size: 12px; color: var(--muted); }
+.hbtn { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--line); background: var(--surface); border-radius: 999px; padding: 6px 12px; min-height: 40px; cursor: pointer; font-size: 14px; font-weight: 600; flex: none; }
+
+main { flex: 1; padding: 16px 16px calc(96px + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column; gap: 16px; }
+.view-enter { animation: enter .2s ease-out; }
+@keyframes enter { from { opacity: .4; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .view-enter { animation: none; } }
+
+h1, h2, h3, h4 { margin: 0; text-wrap: balance; }
+h2 { font-family: var(--display); font-size: 24px; line-height: 1.25; }
+h3 { font-size: 17px; line-height: 1.35; }
+p { margin: 0; }
+.muted { color: var(--muted); }
+.small { font-size: 13px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 16px; box-shadow: var(--shadow); }
+.stack { display: flex; flex-direction: column; gap: 12px; }
+.row { display: flex; align-items: center; gap: 10px; }
+.between { justify-content: space-between; }
+.wrap { flex-wrap: wrap; }
+.sec-h { display: flex; flex-direction: column; gap: 2px; }
+.num { font-variant-numeric: tabular-nums; font-weight: 700; direction: ltr; unicode-bidi: isolate; }
+
+.hero { background: linear-gradient(150deg, #2A66AE 0%, #1D4E89 70%); color: #FFFFFF; border-radius: 24px; padding: 18px 20px; display: flex; flex-direction: column; gap: 12px; position: relative; overflow: hidden; }
+.hero::after { content: ""; position: absolute; inset-inline-end: -40px; top: -40px; width: 160px; height: 160px; border-radius: 50%; border: 24px solid rgba(255,255,255,.08); }
+.hero h1 { font-family: var(--display); font-size: 25px; line-height: 1.25; }
+.hero p { opacity: .92; font-size: 14px; }
+.hero .hbtns { display: flex; gap: 8px; flex-wrap: wrap; position: relative; z-index: 1; }
+.hero .hb { border: 0; background: #FFFFFF; color: #1D4E89; border-radius: 14px; padding: 10px 16px; min-height: 46px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+.hero .hb.ghost { background: rgba(255,255,255,.16); color: #FFFFFF; }
+.prog { height: 8px; border-radius: 999px; background: rgba(255,255,255,.22); overflow: hidden; }
+.prog i { display: block; height: 100%; background: #F2C26B; border-radius: 999px; }
+.timer { font-variant-numeric: tabular-nums; font-weight: 700; direction: ltr; unicode-bidi: isolate; }
+
+.sos { display: flex; align-items: center; gap: 10px; background: var(--danger-soft); border: 1px solid color-mix(in srgb, var(--danger) 40%, transparent); border-radius: 18px; padding: 10px 12px; }
+.sos .lbl { font-weight: 700; color: var(--danger); flex: 1; min-width: 0; }
+.callbtn { display: inline-flex; align-items: center; gap: 6px; text-decoration: none; font-weight: 700; color: #FFFFFF; background: #B0281B; border-radius: 12px; padding: 8px 14px; min-height: 44px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.callbtn.ghost { background: transparent; color: var(--danger); border: 1.5px solid var(--danger); }
+
+.grid3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.etile { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; text-align: center; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 12px 6px; min-height: 104px; cursor: pointer; box-shadow: var(--shadow); }
+.etile:active { transform: scale(.98); }
+.etile .ic { width: 42px; height: 42px; border-radius: 14px; display: grid; place-items: center; background: var(--brand-soft); color: var(--brand); }
+.etile.crit .ic { background: var(--danger-soft); color: var(--danger); }
+.etile b { font-size: 13.5px; line-height: 1.3; }
+.action { display: flex; align-items: center; gap: 12px; width: 100%; text-align: start; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 14px; cursor: pointer; box-shadow: var(--shadow); color: inherit; text-decoration: none; }
+.action .ic { width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; flex: none; }
+.action div { flex: 1; min-width: 0; }
+.action b { display: block; }
+.action span.s { display: block; font-size: 13px; color: var(--muted); }
+.badge { display: inline-flex; align-items: center; justify-content: center; min-width: 24px; height: 24px; padding: 0 7px; border-radius: 999px; background: var(--danger); color: #FFFFFF; font-size: 13px; font-weight: 700; }
+.chev { color: var(--muted); flex: none; }
+[dir="rtl"] .chev { transform: scaleX(-1); }
+.banner { display: flex; gap: 8px; align-items: center; background: var(--brand-soft); color: var(--brand); border-radius: 12px; padding: 8px 12px; font-size: 13px; font-weight: 600; }
+.banner.amber { background: var(--amber-soft); color: var(--amber); }
+.banner.red { background: var(--danger-soft); color: var(--danger); }
+.tip { background: var(--amber-soft); border-radius: 18px; padding: 14px 16px; display: flex; gap: 12px; }
+.tip .ic { color: var(--amber); flex: none; margin-top: 2px; }
+
+.flowtop { display: flex; align-items: center; gap: 10px; }
+.back { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 14px; border: 1px solid var(--line); background: var(--surface); cursor: pointer; flex: none; }
+[dir="rtl"] .back svg { transform: scaleX(-1); }
+.callbox { background: var(--danger-soft); border: 1.5px solid var(--danger); border-radius: 20px; padding: 14px 16px; display: flex; flex-direction: column; gap: 10px; }
+.callbox h3 { color: var(--danger); display: flex; align-items: center; gap: 8px; }
+.callbox ul, .dont ul { margin: 0; padding-inline-start: 20px; display: flex; flex-direction: column; gap: 4px; }
+.steps { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; counter-reset: s; }
+.steps li { display: flex; gap: 12px; align-items: flex-start; counter-increment: s; }
+.steps li::before { content: counter(s); flex: none; width: 30px; height: 30px; border-radius: 50%; background: var(--brand); color: var(--on-brand); display: grid; place-items: center; font-weight: 700; font-size: 14px; font-variant-numeric: tabular-nums; }
+.dont { background: var(--surface-2); border-radius: 16px; padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; }
+.dont h4 { color: var(--danger); font-size: 14px; display: flex; gap: 6px; align-items: center; }
+.kitchips { display: flex; flex-wrap: wrap; gap: 8px; }
+.kchip { display: inline-flex; align-items: center; gap: 6px; background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 6px 12px; font-size: 14px; cursor: pointer; }
+.kchip .ic { color: var(--brand); display: grid; }
+.pchips { display: flex; flex-wrap: wrap; gap: 6px; }
+.pchips button { border: 1.5px solid var(--line); background: var(--surface); border-radius: 999px; padding: 6px 12px; min-height: 40px; font-size: 14px; cursor: pointer; }
+.pchips button[aria-pressed="true"] { border-color: var(--brand); background: var(--brand-soft); color: var(--brand); font-weight: 700; }
+.plan { background: var(--brand-soft); border-radius: 16px; padding: 12px 14px; display: flex; flex-direction: column; gap: 6px; }
+.plan b { color: var(--brand); }
+.stimer { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 16px; border-radius: 20px; background: var(--surface); border: 2px solid var(--brand); text-align: center; }
+.stimer.warn { border-color: var(--danger); background: var(--danger-soft); }
+.stimer .t { font-family: var(--display); font-size: 56px; line-height: 1; font-variant-numeric: tabular-nums; direction: ltr; }
+.stimer.warn .t { color: var(--danger); }
+
+.btns { display: flex; flex-direction: column; gap: 8px; }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 0; border-radius: 14px; padding: 12px 18px; min-height: 52px; font-weight: 700; cursor: pointer; text-decoration: none; text-align: center; }
+.btn.primary { background: var(--brand); color: var(--on-brand); }
+.btn.secondary { background: var(--surface); color: var(--fg); border: 1.5px solid var(--line); }
+.btn.danger { background: #B0281B; color: #FFFFFF; }
+.btn.wa { background: #1E8E4E; color: #FFFFFF; }
+.btn.sm { min-height: 40px; padding: 6px 14px; font-size: 14px; }
+.btn:disabled { opacity: .45; cursor: default; }
+
+.checks { display: flex; flex-direction: column; gap: 8px; }
+.check { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border: 1.5px solid var(--line); border-radius: 14px; background: var(--surface); cursor: pointer; min-height: 52px; }
+.check input { width: 22px; height: 22px; accent-color: var(--brand); flex: none; margin: 0; }
+.check.on { border-color: var(--ok); background: var(--ok-soft); }
+.check.key { border-color: var(--danger); }
+.check.key.on { border-color: var(--ok); }
+
+.pcard { background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 14px; display: flex; flex-direction: column; gap: 10px; box-shadow: var(--shadow); }
+.avatar { width: 46px; height: 46px; border-radius: 50%; background: var(--brand-soft); color: var(--brand); display: grid; place-items: center; font-weight: 700; font-size: 18px; flex: none; }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.tag { font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 999px; background: var(--surface-2); color: var(--muted); }
+.tag.red { background: var(--danger-soft); color: var(--danger); }
+.tag.blue { background: var(--brand-soft); color: var(--brand); }
+.dl { margin: 0; display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.4fr); gap: 6px 12px; font-size: 14px; }
+.dl dt { color: var(--muted); }
+.dl dd { margin: 0; font-weight: 600; overflow-wrap: anywhere; white-space: pre-wrap; }
+
+.form { display: flex; flex-direction: column; gap: 10px; }
+.field { display: flex; flex-direction: column; gap: 4px; }
+.field > label, .field > .lab { font-size: 13px; font-weight: 600; color: var(--muted); }
+.field input[type=text], .field input[type=tel], .field input[type=date], .field textarea, .field select { font: inherit; color: var(--fg); background: var(--surface); border: 1.5px solid var(--line); border-radius: 12px; padding: 10px 12px; min-height: 46px; width: 100%; }
+.field textarea { min-height: 70px; resize: vertical; }
+.field input:focus, .field textarea:focus, .field select:focus { border-color: var(--brand); outline: none; }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chips label { display: inline-flex; align-items: center; gap: 6px; border: 1.5px solid var(--line); border-radius: 999px; padding: 6px 12px; font-size: 14px; cursor: pointer; min-height: 40px; background: var(--surface); }
+.chips input { accent-color: var(--brand); margin: 0; width: 18px; height: 18px; flex: none; }
+.chips label:has(input:checked) { border-color: var(--brand); background: var(--brand-soft); }
+.privacy { display: flex; gap: 8px; align-items: center; font-size: 13px; color: var(--muted); }
+
+.cgrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.cbtn { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; border: 2px solid var(--line); background: var(--surface); border-radius: 20px; padding: 14px 6px; min-height: 118px; cursor: pointer; text-align: center; }
+.cbtn .ic { width: 52px; height: 52px; border-radius: 16px; display: grid; place-items: center; }
+.cbtn b { font-size: 15px; line-height: 1.3; }
+.pain { display: grid; grid-template-columns: repeat(11, minmax(0, 1fr)); gap: 4px; }
+.pain button { aspect-ratio: 1; max-width: 100%; border: 0; border-radius: 10px; font-weight: 700; color: #FFFFFF; cursor: pointer; font-variant-numeric: tabular-nums; font-size: 15px; padding: 0; }
+.bodyp { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.bodyp button { border: 1.5px solid var(--line); background: var(--surface); border-radius: 14px; min-height: 52px; font-weight: 600; cursor: pointer; }
+
+.seg { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 2px; scrollbar-width: none; }
+.seg button { flex: none; border: 1.5px solid var(--line); background: var(--surface); border-radius: 999px; padding: 8px 14px; min-height: 40px; font-size: 14px; font-weight: 600; cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--brand); border-color: var(--brand); color: var(--on-brand); }
+.kstat { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; }
+.kstat div { border-radius: 16px; padding: 10px 12px; display: flex; flex-direction: column; gap: 2px; }
+.kstat b { font-family: var(--display); font-size: 28px; line-height: 1; font-variant-numeric: tabular-nums; }
+.kstat span { font-size: 12px; font-weight: 600; }
+details.item { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; }
+details.item summary { list-style: none; display: flex; align-items: center; gap: 12px; padding: 10px 12px; cursor: pointer; min-height: 58px; }
+details.item summary::-webkit-details-marker { display: none; }
+details.item summary .ic { width: 36px; height: 36px; border-radius: 12px; background: var(--brand-soft); color: var(--brand); display: grid; place-items: center; flex: none; }
+details.item summary b { flex: 1; min-width: 0; font-size: 15px; }
+.st { font-size: 12px; font-weight: 700; border-radius: 999px; padding: 3px 10px; white-space: nowrap; }
+.st.ok { background: var(--ok-soft); color: var(--ok); }
+.st.soon { background: var(--amber-soft); color: var(--amber); }
+.st.bad { background: var(--danger-soft); color: var(--danger); }
+.st.none { background: var(--surface-2); color: var(--muted); }
+details.item .body { padding: 0 14px 14px; display: flex; flex-direction: column; gap: 10px; }
+.caution { background: var(--amber-soft); border-radius: 12px; padding: 8px 12px; font-size: 14px; }
+.caution b { color: var(--amber); }
+.msgbox { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px; font-size: 14px; white-space: pre-wrap; overflow-wrap: anywhere; max-height: 240px; overflow: auto; }
+.list { margin: 0; padding-inline-start: 20px; display: flex; flex-direction: column; gap: 4px; }
+.numrow { display: flex; align-items: center; gap: 12px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 12px 14px; box-shadow: var(--shadow); }
+.numrow .n { font-family: var(--display); font-size: 30px; line-height: 1; color: var(--danger); min-width: 64px; font-variant-numeric: tabular-nums; direction: ltr; text-align: center; }
+.numrow div { flex: 1; min-width: 0; }
+.numrow div > span { display: block; }
+.log { display: flex; flex-direction: column; gap: 6px; }
+.log div { display: flex; gap: 10px; align-items: center; font-size: 14px; }
+.log .dot { width: 10px; height: 10px; border-radius: 50%; flex: none; }
+.log time { margin-inline-start: auto; color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+
+.tabs { position: fixed; bottom: 0; inset-inline: 0; z-index: 10; display: flex; justify-content: center; padding-bottom: env(safe-area-inset-bottom, 0px); background: color-mix(in srgb, var(--surface) 94%, transparent); backdrop-filter: blur(12px); border-top: 1px solid var(--line); }
+.tabs .in { width: 100%; max-width: 520px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.tabs button { border: 0; background: transparent; display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 8px 2px 10px; min-height: 64px; cursor: pointer; color: var(--muted); font-size: 12px; font-weight: 600; }
+.tabs button .tic { width: 44px; height: 30px; border-radius: 999px; display: grid; place-items: center; }
+.tabs button[aria-current="page"] { color: var(--brand); }
+.tabs button[aria-current="page"] .tic { background: var(--brand-soft); }
+.tabs button.sos-tab { color: var(--danger); }
+.tabs button.sos-tab[aria-current="page"] .tic { background: var(--danger-soft); }
+@media (min-width: 640px) { .tabs { position: sticky; } }
+
+.overlay { position: fixed; inset: 0; z-index: 30; background: rgba(5, 12, 22, .55); display: grid; place-items: end center; }
+.sheet { width: 100%; max-width: 520px; background: var(--shell); border-radius: 26px 26px 0 0; padding: 20px 16px calc(20px + env(safe-area-inset-bottom, 0px)); display: flex; flex-direction: column; gap: 14px; max-height: 92vh; overflow: auto; animation: up .2s ease-out; }
+@keyframes up { from { transform: translateY(30px); opacity: .5; } to { transform: none; opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .sheet { animation: none; } }
+.langs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.langs button { border: 1.5px solid var(--line); background: var(--surface); border-radius: 18px; padding: 14px 8px; min-height: 76px; cursor: pointer; display: flex; flex-direction: column; gap: 2px; align-items: center; }
+.langs button b { font-size: 18px; }
+.langs button span { font-size: 12px; color: var(--muted); }
+.langs button[aria-pressed="true"] { border-color: var(--brand); background: var(--brand-soft); }
+.agree { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 10px; }
+.agree li { display: flex; gap: 10px; align-items: flex-start; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 12px; }
+.agree li svg { color: var(--brand); flex: none; margin-top: 2px; }
+.full { position: fixed; inset: 0; z-index: 45; background: #FFFFFF; color: #111; display: flex; flex-direction: column; padding: calc(16px + env(safe-area-inset-top, 0px)) 20px calc(20px + env(safe-area-inset-bottom, 0px)); gap: 16px; overflow: auto; }
+.full .mid { flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 18px; text-align: center; }
+.full .big { font-family: var(--display); font-size: clamp(40px, 11vw, 64px); line-height: 1.25; direction: rtl; }
+.full .en { font-size: clamp(22px, 6vw, 32px); color: #333; direction: ltr; }
+.full .ur { font-size: 22px; color: #555; direction: rtl; }
+.full .closem { background: #1D4E89; color: #FFF; border: 0; border-radius: 12px; padding: 8px 16px; font-weight: 700; min-height: 44px; cursor: pointer; }
+.full .icbig { width: 120px; height: 120px; border-radius: 32px; display: grid; place-items: center; }
+.medic table { width: 100%; border-collapse: collapse; font-size: 18px; }
+.medic th { text-align: start; font-size: 13px; color: #555; font-weight: 600; padding: 10px 0 2px; }
+.medic td { padding: 0 0 10px; font-weight: 700; border-bottom: 1px solid #E3E3E3; overflow-wrap: anywhere; white-space: pre-wrap; }
+.medic .mh { display: flex; align-items: center; justify-content: space-between; gap: 10px; background: #B0281B; color: #FFF; border-radius: 18px; padding: 14px 16px; }
+.medic .mh b { font-size: 22px; }
+.codebox { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12px; direction: ltr; text-align: left; word-break: break-all; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 10px; max-height: 96px; overflow: auto; }
+.foot { text-align: center; font-size: 12px; color: var(--muted); padding-top: 4px; }
+.toast { position: fixed; z-index: 50; inset-inline: 16px; bottom: calc(96px + env(safe-area-inset-bottom, 0px)); margin-inline: auto; max-width: 360px; background: var(--fg); color: var(--shell); border-radius: 14px; padding: 12px 16px; text-align: center; font-weight: 600; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+</style>
+</head><body>
+
+<div class="app" id="app" dir="rtl" lang="ar">
+  <header class="bar">
+    <div class="brand">
+      <div class="logo" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="18" rx="1.6" fill="#FFFFFF"/><rect x="3" y="9" width="18" height="6" rx="1.6" fill="#FFFFFF"/></svg></div>
+      <div><b id="t-app">مرافق</b><small id="t-brand">إسعافات مركبات ذوي الإعاقة</small></div>
+    </div>
+    <div class="row" style="gap:6px;flex:none">
+      <button type="button" class="hbtn" id="langbtn" aria-haspopup="dialog"></button>
+      <button type="button" class="hbtn" id="setbtn" aria-haspopup="dialog" style="padding:6px 10px"></button>
+    </div>
+  </header>
+  <main id="view" tabindex="-1"></main>
+  <nav class="tabs" aria-label="Main"><div class="in" id="tabs"></div></nav>
+</div>
+<div id="layer"></div>
+
+<script>
+(function () {
+  "use strict";
+
+  var CONFIG = {
+    pharmacyWhatsApp: "",              // international format without +, e.g. 9665XXXXXXXX
+    pharmacyDisplay: "[رقم الصيدلية]",
+    reviewedBy: "",                    // name of the pharmacist / first-aid trainer once content is approved
+    reviewedOn: ""
+  };
+
+  var LANGS = [
+    { id: "ar", name: "العربية", en: "Arabic", dir: "rtl" },
+    { id: "en", name: "English", en: "English", dir: "ltr" },
+    { id: "ur", name: "اردو", en: "Urdu", dir: "rtl" }
+  ];
+  var LI = { ar: 0, en: 1, ur: 2 };
+
+  /* ---------- interface text: [ar, en, ur] ---------- */
+  var S = {
+    app: ["مُرافق", "Murafiq", "مُرافق"],
+    brand: ["إسعافات مركبات ذوي الإعاقة", "First aid for accessible transport", "معذور افراد کی گاڑیوں کی فرسٹ ایڈ"],
+    tHome: ["الرئيسية", "Home", "ہوم"], tPax: ["الركاب", "Passengers", "مسافر"], tTalk: ["تواصل", "Talk", "بات چیت"], tKit: ["الحقيبة", "Kit", "کٹ"], tSos: ["طوارئ", "SOS", "ایمرجنسی"],
+    hello: ["رحلة آمنة", "Have a safe trip", "محفوظ سفر"],
+    heroSub: ["مساعدك في المركبة: فحص قبل الرحلة، وخطوات واضحة عند الطوارئ، وتواصل مع الراكب.", "Your helper in the vehicle: a pre-trip check, clear steps in emergencies, and a way to talk with each passenger.", "گاڑی میں آپ کا مددگار: سفر سے پہلے جانچ، ایمرجنسی میں واضح مراحل، اور مسافر سے بات چیت۔"],
+    preTrip: ["فحص ما قبل الرحلة", "Pre-trip check", "سفر سے پہلے جانچ"],
+    startCheck: ["ابدأ الفحص", "Start the check", "جانچ شروع کریں"],
+    tripOn: ["الرحلة جارية", "Trip in progress", "سفر جاری ہے"],
+    endTrip: ["إنهاء الرحلة", "End trip", "سفر ختم کریں"],
+    tripsToday: ["رحلات اليوم", "Trips today", "آج کے سفر"],
+    sosQ: ["حالة طارئة؟", "Emergency?", "ایمرجنسی؟"],
+    whatHappening: ["ماذا يحدث الآن؟", "What is happening now?", "ابھی کیا ہو رہا ہے؟"],
+    whatSub: ["اختر الحالة لتظهر لك خطوات واضحة", "Pick the situation to get clear steps", "واضح مراحل کے لیے صورتحال منتخب کریں"],
+    aTalk: ["لوحة التواصل", "Communication board", "بات چیت کا بورڈ"],
+    aTalkSub: ["للراكب الذي لا يستطيع الكلام", "For passengers who cannot speak", "ان مسافروں کے لیے جو بول نہیں سکتے"],
+    aPax: ["ملفات الركاب", "Passenger profiles", "مسافروں کی پروفائل"],
+    aPaxSub: ["حالته، وخطة الطوارئ، ورقم ولي الأمر", "Conditions, emergency plan, guardian's number", "حالت، ایمرجنسی منصوبہ، سرپرست کا نمبر"],
+    aKit: ["حالة الحقيبة", "Kit status", "کٹ کی حالت"],
+    aKitOk: ["كل الأصناف صالحة", "All items are fine", "تمام اشیاء ٹھیک ہیں"],
+    aKitBad: ["{n} أصناف تحتاج تعبئة", "{n} items need a refill", "{n} اشیاء کو دوبارہ بھرنا ہے"],
+    recent: ["آخر البلاغات", "Recent reports", "حالیہ رپورٹس"],
+    pending: ["نسخة تجريبية: الإرشادات لم يعتمدها صيدلي أو مدرب إسعافات بعد.", "Pilot version: the guidance has not yet been approved by a pharmacist or first-aid trainer.", "آزمائشی ورژن: رہنمائی ابھی کسی فارماسسٹ یا فرسٹ ایڈ ٹرینر نے منظور نہیں کی۔"],
+    reviewed: ["راجع المحتوى: {name} · {date}", "Content reviewed by: {name} · {date}", "مواد کا جائزہ: {name} · {date}"],
+    disclaimer: ["إرشادات إسعافات أولية، وليست تشخيصا. في الحالات الخطيرة اتصل 997 فورا.", "First aid guidance, not a diagnosis. In serious cases call 997 right away.", "فرسٹ ایڈ رہنمائی، تشخیص نہیں۔ سنگین حالت میں فوراً 997 پر کال کریں۔"],
+    foot: ["نموذج تجريبي · صيدلية شمس العافية، جدة", "Prototype · Shams Al-Afia Pharmacy, Jeddah", "پروٹوٹائپ · شمس العافیہ فارمیسی، جدہ"],
+    back: ["رجوع", "Back", "واپس"],
+    call: ["اتصل", "Call", "کال"],
+    call997If: ["اتصل بالإسعاف 997 فورا إذا:", "Call an ambulance on 997 right away if:", "فوراً 997 پر ایمبولینس کو کال کریں اگر:"],
+    pharmIf: ["راسل الصيدلية إذا:", "Message the pharmacy if:", "فارمیسی کو پیغام دیں اگر:"],
+    stepsT: ["الخطوات", "Steps", "مراحل"],
+    dontT: ["لا تفعل", "Do not", "یہ نہ کریں"],
+    fromKit: ["من الحقيبة", "From the kit", "کٹ سے"],
+    forWho: ["لمن؟", "For whom?", "کس کے لیے؟"],
+    noOne: ["غير محدد", "Not set", "غیر متعین"],
+    planT: ["خطة الطوارئ لـ {name}", "{name}'s emergency plan", "{name} کا ایمرجنسی منصوبہ"],
+    noPlan: ["لا توجد خطة مسجلة. أضفها في ملف الراكب.", "No plan saved. Add it in the passenger's profile.", "کوئی منصوبہ محفوظ نہیں۔ مسافر کی پروفائل میں شامل کریں۔"],
+    timerT: ["مؤقت النوبة", "Seizure timer", "دورے کا ٹائمر"],
+    timerStart: ["ابدأ المؤقت", "Start timer", "ٹائمر شروع کریں"],
+    timerStop: ["توقفت النوبة", "Seizure stopped", "دورہ رک گیا"],
+    timerWarn: ["مرّت 5 دقائق: اتصل 997 الآن", "5 minutes passed: call 997 now", "5 منٹ ہو گئے: ابھی 997 پر کال کریں"],
+    timerHint: ["عند 5 دقائق يتحول للأحمر ويطلب منك الاتصال", "At 5 minutes it turns red and tells you to call", "5 منٹ پر سرخ ہو کر کال کا کہے گا"],
+    lasted: ["استمرت {t}", "Lasted {t}", "{t} تک رہا"],
+    report: ["سجّل ما حدث", "Record what happened", "جو ہوا درج کریں"],
+    callGuardian: ["اتصل بولي الأمر", "Call the guardian", "سرپرست کو کال کریں"],
+    showCard: ["بطاقته الطبية للمسعف", "Medical card for paramedics", "طبی عملے کے لیے میڈیکل کارڈ"],
+    paxT: ["ركاب المركبة", "Passengers in this vehicle", "اس گاڑی کے مسافر"],
+    paxSub: ["تبقى البيانات على هذا الجوال فقط", "Data stays on this phone only", "ڈیٹا صرف اسی فون پر رہتا ہے"],
+    addPax: ["أضف راكبا", "Add a passenger", "مسافر شامل کریں"],
+    noPax: ["لم تضف ركابا بعد. أضف الركاب المنتظمين ليظهر لك ما يخص كل واحد عند الطوارئ.", "No passengers yet. Add your regular passengers so each emergency shows what matters for them.", "ابھی کوئی مسافر نہیں۔ اپنے مستقل مسافر شامل کریں تاکہ ایمرجنسی میں ہر ایک کی ضروری معلومات نظر آئیں۔"],
+    edit: ["عدّل", "Edit", "ترمیم"], save: ["احفظ", "Save", "محفوظ کریں"], cancel: ["إلغاء", "Cancel", "منسوخ"], remove: ["حذف", "Remove", "حذف"], close: ["إغلاق", "Close", "بند کریں"],
+    saved: ["تم الحفظ على جوالك", "Saved on your phone", "آپ کے فون پر محفوظ ہو گیا"],
+    fName: ["الاسم", "Name", "نام"],
+    fDis: ["نوع الإعاقة", "Type of disability", "معذوری کی قسم"],
+    fWheel: ["يستخدم كرسيا متحركا", "Uses a wheelchair", "وہیل چیئر استعمال کرتا ہے"],
+    fComm: ["طريقة التواصل", "How they communicate", "بات چیت کا طریقہ"],
+    fConds: ["حالات صحية", "Health conditions", "صحت کی حالت"],
+    fAllergy: ["الحساسية", "Allergies", "الرجی"],
+    fMeds: ["الأدوية", "Medicines", "دوائیں"],
+    fPlan: ["خطة الطوارئ (من الطبيب أو الأهل)", "Emergency plan (from doctor or family)", "ایمرجنسی منصوبہ (ڈاکٹر یا گھر والوں سے)"],
+    fGuardian: ["ولي الأمر", "Guardian", "سرپرست"],
+    fGPhone: ["جوال ولي الأمر", "Guardian's phone", "سرپرست کا فون"],
+    fNotes: ["ملاحظات النقل والتعامل", "Transfer and care notes", "منتقلی اور دیکھ بھال کے نوٹس"],
+    fNotesPh: ["مثال: يُنقل بشخصين، يهدأ بسماع القرآن، يخاف من الأصوات العالية", "Example: two-person transfer, calms with Quran recitation, scared of loud noises", "مثال: دو افراد منتقل کریں، تلاوت سے پرسکون، تیز آواز سے ڈرتا ہے"],
+    talkT: ["لوحة التواصل", "Communication board", "بات چیت کا بورڈ"],
+    talkSub: ["وجّه الجوال للراكب ودعه يشير. اضغط أي بطاقة لتكبيرها.", "Turn the phone to the passenger and let them point. Tap a card to show it big.", "فون مسافر کی طرف کریں اور اشارہ کرنے دیں۔ بڑا دکھانے کے لیے کارڈ دبائیں۔"],
+    painT: ["كم الألم؟", "How much pain?", "کتنا درد ہے؟"],
+    painOf: ["الألم: {n} من 10", "Pain: {n} out of 10", "درد: 10 میں سے {n}"],
+    whereT: ["أين الألم؟", "Where does it hurt?", "درد کہاں ہے؟"],
+    kitT: ["حقيبة الإسعافات", "First aid kit", "فرسٹ ایڈ کٹ"],
+    kitSub: ["سجّل تاريخ الانتهاء لكل صنف، وعلّم ما استُخدم، واطلب التعبئة برسالة واحدة.", "Set each item's expiry date, mark what was used, and order a refill in one message.", "ہر چیز کی میعاد درج کریں، استعمال شدہ نشان لگائیں، اور ایک پیغام میں دوبارہ بھرنے کا آرڈر دیں۔"],
+    stOk: ["صالحة", "Fine", "ٹھیک"], stSoon: ["تنتهي قريبا", "Expiring soon", "جلد ختم"], stBad: ["تحتاج تعبئة", "Need refill", "بھرنا ہے"],
+    sOk: ["صالح", "OK", "ٹھیک"], sSoon: ["ينتهي قريبا", "Expires soon", "جلد ختم"], sExp: ["منتهي", "Expired", "میعاد ختم"], sUsed: ["استُخدم", "Used", "استعمال ہو گیا"], sNone: ["بلا تاريخ", "No date", "تاریخ نہیں"],
+    howUse: ["طريقة الاستخدام", "How to use", "استعمال کا طریقہ"], caution: ["تنبيه", "Caution", "احتیاط"],
+    expiry: ["تاريخ الانتهاء", "Expiry date", "میعاد ختم ہونے کی تاریخ"],
+    markUsed: ["استُخدم، يحتاج تعبئة", "Used, needs refill", "استعمال ہو گیا، بھرنا ہے"],
+    refill: ["اطلب إعادة التعبئة", "Order a refill", "دوبارہ بھرنے کا آرڈر دیں"],
+    refillNone: ["لا شيء يحتاج تعبئة الآن", "Nothing needs a refill right now", "ابھی کچھ بھرنے کی ضرورت نہیں"],
+    refillT: ["طلب إعادة التعبئة", "Refill order", "دوبارہ بھرنے کا آرڈر"],
+    refilled: ["تمت التعبئة، صفّر الحالة", "Refilled, reset status", "بھر دیا گیا، حالت ری سیٹ کریں"],
+    wa: ["أرسل على واتساب", "Send on WhatsApp", "واٹس ایپ پر بھیجیں"],
+    copy: ["انسخ الرسالة", "Copy message", "پیغام کاپی کریں"], copied: ["تم النسخ", "Copied", "کاپی ہو گیا"],
+    sosT: ["الطوارئ", "Emergency", "ایمرجنسی"],
+    sosSub: ["في حالة الخطر اتصل فورا، ولا تنتظر.", "If it is serious, call right away. Do not wait.", "خطرے میں فوراً کال کریں، انتظار نہ کریں۔"],
+    n997: ["الإسعاف (الهلال الأحمر)", "Ambulance (Red Crescent)", "ایمبولینس (ہلال احمر)"],
+    n911: ["الطوارئ الموحد", "Unified emergency", "متحدہ ایمرجنسی"],
+    n937: ["استشارات وزارة الصحة", "Ministry of Health advice line", "وزارت صحت ہیلپ لائن"],
+    guardians: ["أولياء أمور الركاب", "Passengers' guardians", "مسافروں کے سرپرست"],
+    medicCards: ["البطاقات الطبية", "Medical cards", "میڈیکل کارڈز"],
+    sayAmb: ["قل للإسعاف: الموقع، وعدد المصابين، ونوع الإعاقة، وما حدث.", "Tell the ambulance: location, number injured, type of disability, and what happened.", "ایمبولینس کو بتائیں: جگہ، زخمیوں کی تعداد، معذوری کی قسم، اور کیا ہوا۔"],
+    repT: ["بلاغ حادثة", "Incident report", "واقعے کی رپورٹ"],
+    repSub: ["أرسله للمشرف أو لولي الأمر", "Send it to your supervisor or the guardian", "اسے سپروائزر یا سرپرست کو بھیجیں"],
+    repWhat: ["ماذا حدث؟", "What happened?", "کیا ہوا؟"],
+    repDone: ["ماذا فعلت؟", "What did you do?", "آپ نے کیا کیا؟"],
+    rep997: ["تم الاتصال بالإسعاف 997", "Ambulance 997 was called", "ایمبولینس 997 کو کال کی"],
+    repGuard: ["تم إبلاغ ولي الأمر", "Guardian was informed", "سرپرست کو بتایا"],
+    repMake: ["جهّز البلاغ", "Prepare the report", "رپورٹ تیار کریں"],
+    repType: ["نوع الحالة", "Situation", "صورتحال"],
+    repTime: ["الوقت", "Time", "وقت"],
+    repPax: ["الراكب", "Passenger", "مسافر"],
+    repVehicle: ["المركبة", "Vehicle", "گاڑی"],
+    repDriver: ["السائق أو المرافق", "Driver or attendant", "ڈرائیور یا معاون"],
+    yes: ["نعم", "Yes", "ہاں"], no: ["لا", "No", "نہیں"],
+    setT: ["الإعدادات والخصوصية", "Settings and privacy", "ترتیبات اور رازداری"],
+    setVeh: ["بيانات المركبة", "Vehicle details", "گاڑی کی تفصیل"],
+    fOrg: ["الجهة", "Organization", "ادارہ"], fVeh: ["رقم المركبة", "Vehicle number", "گاڑی نمبر"], fDriver: ["اسم السائق أو المرافق", "Driver or attendant name", "ڈرائیور یا معاون کا نام"],
+    bigText: ["خط كبير", "Large text", "بڑا متن"],
+    privT: ["بياناتك عندك أنت", "Your data stays with you", "آپ کا ڈیٹا آپ کے پاس"],
+    privB: ["ملفات الركاب وسجل الحقيبة والبلاغات محفوظة في متصفح هذا الجوال فقط، ولا تصل إلينا. تبقى بعد إغلاق المتصفح وتحديثه، وتُحذف إذا مسحت بيانات المتصفح أو حذفتها من هنا.", "Passenger profiles, kit records and reports are saved only in this phone's browser and never reach us. They stay after you close or update the browser, and are removed if you clear browser data or delete them here.", "مسافروں کی پروفائل، کٹ کا ریکارڈ اور رپورٹس صرف اسی فون کے براؤزر میں محفوظ ہیں اور ہم تک نہیں پہنچتیں۔ براؤزر بند یا اپڈیٹ کرنے کے بعد بھی رہتی ہیں، اور براؤزر ڈیٹا صاف کرنے یا یہاں سے حذف کرنے پر ختم ہوتی ہیں۔"],
+    storBad: ["الحفظ غير متاح الآن (قد تكون في التصفح الخاص).", "Saving is not available right now (you may be in private browsing).", "محفوظ کرنا ابھی ممکن نہیں (شاید پرائیویٹ براؤزنگ)۔"],
+    bkT: ["نسخة احتياطية", "Backup", "بیک اپ"],
+    bkB: ["انسخ الرمز واحفظه. عند تغيير الجوال الصقه في خانة الاستعادة. فيه بيانات صحية، فلا تشاركه إلا مع جهتك.", "Copy the code and keep it. On a new phone, paste it in the restore box. It holds health data, so share it only with your organization.", "کوڈ کاپی کر کے رکھیں۔ نئے فون پر بحالی میں پیسٹ کریں۔ اس میں صحت کی معلومات ہیں، صرف اپنے ادارے سے شیئر کریں۔"],
+    bkCopy: ["انسخ رمز النسخة الاحتياطية", "Copy backup code", "بیک اپ کوڈ کاپی کریں"],
+    rsBtn: ["استعد البيانات", "Restore data", "ڈیٹا بحال کریں"], rsPh: ["الصق الرمز هنا", "Paste the code here", "کوڈ یہاں پیسٹ کریں"],
+    rsOk: ["تمت الاستعادة", "Restored", "بحال ہو گیا"], rsBad: ["الرمز غير صحيح", "The code is not valid", "کوڈ درست نہیں"],
+    delT: ["احذف كل البيانات", "Delete all data", "تمام ڈیٹا حذف کریں"],
+    delAsk: ["متأكد؟ سيُحذف كل شيء من هذا الجهاز، ولا يمكن التراجع.", "Are you sure? Everything will be deleted from this device and cannot be undone.", "کیا آپ کو یقین ہے؟ سب کچھ حذف ہو جائے گا اور واپس نہیں آئے گا۔"],
+    delYes: ["نعم، احذف", "Yes, delete", "ہاں، حذف کریں"], delDone: ["تم الحذف", "Deleted", "حذف ہو گیا"],
+    chooseLang: ["اختر اللغة", "Choose language", "زبان منتخب کریں"],
+    agT: ["قبل أن تبدأ", "Before you start", "شروع کرنے سے پہلے"],
+    ag1: ["هذا التطبيق يعطيك خطوات إسعافات أولية واضحة، ولا يغني عن الطبيب ولا عن دورة إسعافات معتمدة.", "This app gives clear first aid steps. It does not replace a doctor or a certified first aid course.", "یہ ایپ فرسٹ ایڈ کے واضح مراحل دیتی ہے۔ یہ ڈاکٹر یا مستند فرسٹ ایڈ کورس کا متبادل نہیں۔"],
+    ag2: ["في أي حالة خطيرة اتصل بالإسعاف 997 فورا.", "In any serious case, call the ambulance on 997 right away.", "کسی بھی سنگین حالت میں فوراً 997 پر کال کریں۔"],
+    ag3: ["بيانات الركاب تبقى على هذا الجوال فقط. أضفها بموافقة أولياء أمورهم.", "Passenger data stays on this phone only. Add it with their guardians' consent.", "مسافروں کا ڈیٹا صرف اسی فون پر رہتا ہے۔ سرپرستوں کی اجازت سے شامل کریں۔"],
+    agBtn: ["فهمت، وأوافق", "I understand and agree", "میں سمجھ گیا اور متفق ہوں"],
+    obVehT: ["بيانات المركبة", "Vehicle details", "گاڑی کی تفصیل"],
+    obVehSub: ["تظهر في طلب التعبئة وفي البلاغات. يمكنك تخطيها.", "Shown on refill orders and reports. You can skip this.", "دوبارہ بھرنے کے آرڈر اور رپورٹس میں نظر آتی ہے۔ چھوڑ سکتے ہیں۔"],
+    whichKit: ["أي حقيبة في مركبتك؟", "Which kit is in your vehicle?", "آپ کی گاڑی میں کون سی کٹ ہے؟"],
+    begin: ["ابدأ", "Start", "شروع کریں"], skip: ["تخطي", "Skip", "چھوڑیں"],
+    lastCheck: ["تفقّد المركبة بالكامل: لا أحد بقي داخلها", "Check the whole vehicle: nobody is left inside", "پوری گاڑی دیکھیں: اندر کوئی نہیں رہا"],
+    endHint: ["لا تُنهِ الرحلة قبل التفقد", "Do not end the trip before checking", "جانچ سے پہلے سفر ختم نہ کریں"],
+    checkT: ["فحص ما قبل الرحلة", "Pre-trip check", "سفر سے پہلے جانچ"],
+    checkSub: ["علّم على كل بند قبل الانطلاق", "Tick every item before you drive", "روانگی سے پہلے ہر چیز پر نشان لگائیں"],
+    goTrip: ["ابدأ الرحلة", "Start the trip", "سفر شروع کریں"],
+    goAnyway: ["ابدأ رغم البنود الناقصة", "Start with items missing", "کمی کے باوجود شروع کریں"],
+    tripEnded: ["انتهت الرحلة", "Trip ended", "سفر ختم"],
+    msgRefillHead: ["السلام عليكم، طلب إعادة تعبئة حقيبة إسعافات", "Hello, refill order for a first aid kit", "السلام علیکم، فرسٹ ایڈ کٹ دوبارہ بھرنے کا آرڈر"]
+  };
+
+  var DIS = [
+    { id: "mob", t: ["حركية", "Physical / mobility", "جسمانی / حرکت"], ar: "حركية", en: "Mobility" },
+    { id: "vis", t: ["بصرية", "Visual", "بصری"], ar: "بصرية", en: "Visual" },
+    { id: "hear", t: ["سمعية", "Hearing", "سماعت"], ar: "سمعية", en: "Hearing" },
+    { id: "int", t: ["ذهنية", "Intellectual", "ذہنی"], ar: "ذهنية", en: "Intellectual" },
+    { id: "aut", t: ["توحد", "Autism", "آٹزم"], ar: "توحد", en: "Autism" },
+    { id: "cp", t: ["شلل دماغي", "Cerebral palsy", "دماغی فالج"], ar: "شلل دماغي", en: "Cerebral palsy" },
+    { id: "multi", t: ["متعددة", "Multiple", "متعدد"], ar: "متعددة", en: "Multiple" },
+    { id: "other", t: ["أخرى", "Other", "دیگر"], ar: "أخرى", en: "Other" }
+  ];
+  var COMM = [
+    { id: "speak", t: ["يتكلم", "Speaks", "بولتا ہے"] },
+    { id: "sign", t: ["لغة الإشارة", "Sign language", "اشاروں کی زبان"] },
+    { id: "pics", t: ["الصور واللوحة", "Pictures / board", "تصاویر / بورڈ"] },
+    { id: "none", t: ["لا يتواصل لفظيا", "Non-verbal", "زبانی بات نہیں کرتا"] }
+  ];
+  var CONDS = [
+    { id: "epi", t: ["صرع", "Epilepsy", "مرگی"], ar: "صرع", en: "Epilepsy", g: "seizure" },
+    { id: "diab", t: ["سكري", "Diabetes", "ذیابیطس"], ar: "سكري", en: "Diabetes", g: "hypo" },
+    { id: "sci", t: ["إصابة حبل شوكي", "Spinal cord injury", "ریڑھ کی ہڈی کی چوٹ"], ar: "إصابة حبل شوكي", en: "Spinal cord injury", g: "ad" },
+    { id: "swal", t: ["صعوبة بلع", "Swallowing difficulty", "نگلنے میں دشواری"], ar: "صعوبة بلع", en: "Swallowing difficulty", g: "choke" },
+    { id: "asth", t: ["ربو أو مشاكل تنفس", "Asthma / breathing", "دمہ / سانس"], ar: "ربو أو مشاكل تنفس", en: "Asthma / breathing", g: "breath" },
+    { id: "heart", t: ["قلب", "Heart condition", "دل کی بیماری"], ar: "قلب", en: "Heart condition", g: null },
+    { id: "skin", t: ["قابلية قرح الضغط", "Prone to pressure sores", "دباؤ کے زخموں کا خطرہ"], ar: "قرح ضغط", en: "Pressure sores", g: "skin" }
+  ];
+
+  /* ---------- emergency guides ---------- */
+  var GUIDES = [
+    { id: "seizure", ic: "bolt", crit: true, timer: true,
+      t: ["نوبة صرع", "Seizure", "مرگی کا دورہ"],
+      call: [["تستمر أكثر من 5 دقائق", "It lasts more than 5 minutes", "5 منٹ سے زیادہ رہے"], ["نوبة ثانية قبل أن يفيق", "A second seizure before waking up", "ہوش آنے سے پہلے دوسرا دورہ"], ["صعوبة تنفس أو ازرقاق بعدها", "Breathing trouble or turning blue after", "بعد میں سانس میں دشواری یا نیلا پڑنا"], ["إصابة، أو أول نوبة في حياته", "An injury, or their first seizure ever", "چوٹ لگ جائے، یا زندگی کا پہلا دورہ"]],
+      st: [["ابدأ المؤقت، وابقَ هادئا", "Start the timer and stay calm", "ٹائمر شروع کریں اور پرسکون رہیں"], ["أوقف المركبة في مكان آمن", "Stop the vehicle in a safe place", "گاڑی محفوظ جگہ روکیں"], ["على الكرسي المتحرك: اتركه في الكرسي، والفرامل مشدودة والحزام مربوط، وادعم رأسه بالوسادة", "In a wheelchair: keep them in the chair with brakes on and belt fastened, and support the head with the cushion", "وہیل چیئر میں: کرسی میں رہنے دیں، بریک لگی اور بیلٹ بندھی ہو، تکیے سے سر کو سہارا دیں"], ["أبعد الأشياء الصلبة عنه", "Move hard objects away", "سخت چیزیں دور کریں"], ["بعد توقف النوبة: ضعه على جنبه إن أمكن، وتأكد من تنفسه، وابقَ معه حتى يفيق", "After it stops: turn them on their side if possible, check breathing, and stay until fully awake", "رکنے کے بعد: ممکن ہو تو کروٹ پر لٹائیں، سانس چیک کریں، ہوش آنے تک ساتھ رہیں"], ["دواء الطوارئ فقط إذا وصفه طبيبه وأنت مدرب عليه، حسب خطته", "Rescue medicine only if their doctor prescribed it and you are trained, following their plan", "ہنگامی دوا صرف تب جب ڈاکٹر نے لکھی ہو اور آپ تربیت یافتہ ہوں، منصوبے کے مطابق"]],
+      dont: [["لا تمسكه بقوة ولا تقيد حركته", "Do not hold them down", "زبردستی نہ پکڑیں"], ["لا تضع أي شيء في فمه", "Put nothing in their mouth", "منہ میں کچھ نہ ڈالیں"], ["لا تعطه ماء أو أكلا حتى يفيق تماما", "No food or drink until fully awake", "پوری طرح ہوش آنے تک کھانا پانی نہ دیں"]],
+      kit: ["cushion", "gloves", "seizurecard"] },
+    { id: "choke", ic: "choke", crit: true,
+      t: ["اختناق", "Choking", "دم گھٹنا"],
+      call: [["لا يستطيع التنفس أو الكلام أو السعال", "Cannot breathe, speak or cough", "سانس، بات یا کھانسی نہ کر سکے"], ["شفتاه تزرقان", "Lips turning blue", "ہونٹ نیلے ہو رہے ہوں"], ["فقد الوعي", "Becomes unconscious", "بے ہوش ہو جائے"]],
+      st: [["إذا كان يسعل بقوة: شجعه على السعال، ولا تضرب ظهره", "If they cough strongly: encourage coughing, do not hit the back", "زور سے کھانس رہا ہو: کھانسنے دیں، کمر پر نہ ماریں"], ["إذا لم يستطع التنفس أو الكلام: اطلب 997 فورا", "If they cannot breathe or speak: call 997 now", "سانس یا بات نہ کر سکے: فوراً 997 کال کریں"], ["إذا كنت مدربا: 5 ضربات بين لوحي الكتف، ثم 5 ضغطات على البطن، وكرر", "If trained: 5 back blows between the shoulder blades, then 5 abdominal thrusts, and repeat", "تربیت ہو تو: کندھوں کے بیچ 5 ضربیں، پھر پیٹ پر 5 دباؤ، دہرائیں"], ["على الكرسي المتحرك: الفرامل مشدودة، واعمل من خلف الكرسي أو من جانبه", "In a wheelchair: brakes on, and work from behind or beside the chair", "وہیل چیئر میں: بریک لگائیں، پیچھے یا سائیڈ سے مدد کریں"], ["إذا فقد الوعي: ابدأ الإنعاش القلبي إن كنت مدربا، حتى يصل الإسعاف", "If unconscious: start CPR if trained, until the ambulance arrives", "بے ہوش ہو: تربیت ہو تو ایمبولینس آنے تک سی پی آر کریں"]],
+      dont: [["لا تُدخل أصابعك في فمه دون رؤية الجسم العالق", "Do not sweep the mouth with your fingers blindly", "اندھا دھند انگلیاں منہ میں نہ ڈالیں"], ["لا تعطه ماء", "Do not give water", "پانی نہ دیں"], ["لمن عنده صعوبة بلع: لا أكل في المركبة إلا حسب خطته", "With swallowing difficulty: no food in the vehicle unless their plan allows", "نگلنے میں دشواری ہو: منصوبے کے بغیر گاڑی میں کھانا نہیں"]],
+      kit: ["faceshield", "gloves"] },
+    { id: "breath", ic: "lungs", crit: true,
+      t: ["ضيق تنفس", "Breathing difficulty", "سانس میں دشواری"],
+      call: [["لا يستطيع إكمال جملة", "Cannot finish a sentence", "پورا جملہ نہ بول سکے"], ["شفتاه زرقاوان أو رماديتان", "Lips blue or grey", "ہونٹ نیلے یا سرمئی"], ["نعاس أو ارتباك", "Drowsy or confused", "غنودگی یا الجھن"], ["لم يتحسن بعد بخاخه", "Not better after their inhaler", "انہیلر کے بعد بھی بہتر نہیں"]],
+      st: [["أوقف المركبة في مكان آمن", "Stop the vehicle in a safe place", "گاڑی محفوظ جگہ روکیں"], ["اجعله جالسا معتدلا، ولا تجعله يستلقي", "Keep them sitting upright, not lying down", "سیدھا بٹھائیں، لٹائیں نہیں"], ["بعد التوقف: فك الأحزمة الضيقة عند الصدر", "Once stopped: loosen tight straps across the chest", "رکنے کے بعد: سینے کے تنگ پٹے ڈھیلے کریں"], ["إذا كان له بخاخ موصوف: ساعده يستخدمه حسب خطته", "If they have a prescribed inhaler, help them use it as their plan says", "تجویز کردہ انہیلر ہو تو منصوبے کے مطابق استعمال میں مدد کریں"], ["طمئنه وتكلم بهدوء", "Reassure them and speak calmly", "تسلی دیں اور آہستہ بات کریں"]],
+      dont: [["لا تعطه دواء غير موصوف له", "Do not give medicine not prescribed for them", "غیر تجویز شدہ دوا نہ دیں"]],
+      kit: ["faceshield"] },
+    { id: "hypo", ic: "drop", crit: false,
+      t: ["هبوط السكر", "Low blood sugar", "شوگر کم ہونا"],
+      call: [["فاقد الوعي أو نعسان جدا", "Unconscious or very drowsy", "بے ہوش یا بہت غنودگی"], ["لا يستطيع البلع بأمان", "Cannot swallow safely", "محفوظ طریقے سے نگل نہ سکے"], ["تشنج", "Has a seizure", "جھٹکے"], ["لم يتحسن بعد جرعتين", "Not better after two doses", "دو خوراکوں کے بعد بھی بہتر نہیں"]],
+      st: [["العلامات: رعشة، عرق، شحوب، جوع، ارتباك، أو تغير مفاجئ في السلوك", "Signs: shaking, sweating, pale, hungry, confused, or a sudden change in behaviour", "علامات: کپکپی، پسینہ، زردی، بھوک، الجھن، یا رویے میں اچانک تبدیلی"], ["إذا كان واعيا ويبلع جيدا: أعطه جل الجلوكوز حسب النشرة", "If awake and swallowing well: give glucose gel as the leaflet says", "ہوش میں ہو اور ٹھیک نگل سکے: ہدایات کے مطابق گلوکوز جیل دیں"], ["انتظر 15 دقيقة. إذا لم يتحسن، كرر مرة واحدة", "Wait 15 minutes. If not better, repeat once", "15 منٹ انتظار کریں۔ بہتر نہ ہو تو ایک بار دہرائیں"], ["بعد التحسن: أخبر أهله، ووجبة خفيفة إن سمحت خطته", "Once better: tell the family, and a light snack if their plan allows", "بہتر ہونے پر: گھر والوں کو بتائیں، منصوبہ اجازت دے تو ہلکا ناشتہ"]],
+      dont: [["لا شيء بالفم لمن هو غير واعٍ أو لا يبلع", "Nothing by mouth if unconscious or unable to swallow", "بے ہوش یا نگل نہ سکے تو منہ سے کچھ نہیں"]],
+      kit: ["glucose"] },
+    { id: "ad", ic: "spine", crit: true,
+      t: ["صداع وتعرق مفاجئ (إصابة حبل شوكي)", "Sudden headache and sweating (spinal cord injury)", "اچانک سر درد اور پسینہ (ریڑھ کی چوٹ)"],
+      call: [["الصداع شديد أو لا يخف خلال دقائق", "The headache is severe or does not ease within minutes", "سر درد شدید ہو یا چند منٹ میں کم نہ ہو"], ["ارتباك أو نعاس", "Confused or drowsy", "الجھن یا غنودگی"], ["ألم صدر أو صعوبة تنفس، أو تشنج", "Chest pain, breathing trouble, or a seizure", "سینے میں درد، سانس میں دشواری، یا جھٹکے"]],
+      st: [["قد تكون حالة خلل في الجهاز العصبي اللاإرادي، وهي طارئة. اجلسه معتدلا وأنزل رجليه", "This may be autonomic dysreflexia, an emergency. Sit them upright and lower their legs", "یہ آٹونومک ڈس ریفلیکسیا ہو سکتا ہے، جو ہنگامی ہے۔ سیدھا بٹھائیں اور ٹانگیں نیچے کریں"], ["فك الأحزمة والملابس الضيقة", "Loosen straps and tight clothing", "پٹے اور تنگ کپڑے ڈھیلے کریں"], ["تحقق من المثانة: انثناء أو انسداد في القسطرة، أو امتلاء الكيس", "Check the bladder: a kinked or blocked catheter, or a full bag", "مثانہ چیک کریں: مڑا یا بند کیتھیٹر، یا بھری تھیلی"], ["ابحث عن أي شيء يضغط على الجسم تحت مستوى الإصابة", "Look for anything pressing on the body below the injury level", "چوٹ کی سطح سے نیچے جسم پر دبنے والی چیز دیکھیں"], ["اتبع خطته الطبية إن وُجدت، وأخبر المسعفين باشتباه الخلل اللاإرادي", "Follow their medical plan if they have one, and tell paramedics you suspect autonomic dysreflexia", "طبی منصوبہ ہو تو عمل کریں، اور طبی عملے کو آٹونومک ڈس ریفلیکسیا کا شک بتائیں"]],
+      dont: [["لا تجعله يستلقي", "Do not lay them flat", "سیدھا نہ لٹائیں"]],
+      kit: ["adcard", "gloves"] },
+    { id: "heat", ic: "thermo", crit: false,
+      t: ["حر وإجهاد حراري", "Heat stress", "گرمی سے تھکن"],
+      call: [["ارتباك أو سلوك غير معتاد", "Confusion or unusual behaviour", "الجھن یا غیر معمولی رویہ"], ["جلد حار جدا وجاف", "Very hot, dry skin", "بہت گرم اور خشک جلد"], ["إغماء أو تشنج", "Fainting or a seizure", "بے ہوشی یا جھٹکے"], ["لا يتحسن مع التبريد", "Not improving with cooling", "ٹھنڈک سے بہتر نہ ہو"]],
+      st: [["شغّل التكييف، أو انقله إلى الظل", "Turn on the air conditioning, or move them into shade", "اے سی چلائیں یا سائے میں لے جائیں"], ["مصابو الحبل الشوكي قد لا يتعرقون، فترتفع حرارتهم أسرع: انتبه لهم أكثر", "People with spinal cord injury may not sweat, so they heat up faster: watch them closely", "ریڑھ کی چوٹ والے پسینہ نہیں کرتے اور جلد گرم ہوتے ہیں: خاص دھیان رکھیں"], ["ضع منشفة التبريد المبللة على الرقبة والإبطين", "Put the wet cooling towel on the neck and armpits", "گیلا ٹھنڈا تولیہ گردن اور بغلوں پر رکھیں"], ["رشفات ماء إذا كان واعيا ويبلع جيدا", "Sips of water if awake and swallowing well", "ہوش میں ہو اور ٹھیک نگلے تو پانی کے گھونٹ"]],
+      dont: [["لا تترك أي راكب في مركبة مغلقة أبدا، ولو لدقائق", "Never leave a passenger in a closed vehicle, even for minutes", "کسی مسافر کو بند گاڑی میں کبھی نہ چھوڑیں، چند منٹ کے لیے بھی"]],
+      kit: ["coolingtowel", "water"] },
+    { id: "fall", ic: "fall", crit: false,
+      t: ["سقوط أو إصابة أثناء النقل", "Fall or injury during transfer", "منتقلی میں گرنا یا چوٹ"],
+      call: [["ضرب رأسه، أو نعاس أو قيء بعدها", "Hit their head, or drowsy or vomiting after", "سر پر چوٹ، یا بعد میں غنودگی یا قے"], ["ألم في الرقبة أو الظهر، أو ضعف أو خدر جديد", "Neck or back pain, or new weakness or numbness", "گردن یا کمر میں درد، یا نئی کمزوری یا سن پن"], ["اشتباه كسر، أو نزيف شديد", "A suspected broken bone, or heavy bleeding", "ہڈی ٹوٹنے کا شک، یا زیادہ خون"]],
+      st: [["لا تتعجل برفعه. اسأله أين يتألم وراقبه", "Do not rush to lift them. Ask where it hurts and watch them", "اٹھانے میں جلدی نہ کریں۔ پوچھیں کہاں درد ہے اور دیکھیں"], ["إذا اشتبهت بإصابة في الرقبة أو الظهر: لا تحركه، واطلب 997", "If you suspect a neck or back injury: do not move them, call 997", "گردن یا کمر کی چوٹ کا شک ہو: حرکت نہ دیں، 997 کال کریں"], ["من لا يشعر بأطرافه قد لا يحس بالإصابة: افحص الجلد والأطراف بعينك", "People without sensation may not feel the injury: check the skin and limbs by eye", "جنہیں احساس نہیں وہ چوٹ محسوس نہیں کرتے: جلد اور اعضاء آنکھ سے دیکھیں"], ["للكدمات: الكمادة الباردة ملفوفة بقماش، من 10 إلى 15 دقيقة", "For bruises: the cold pack wrapped in cloth, for 10 to 15 minutes", "چوٹ پر: کپڑے میں لپٹا ٹھنڈا پیک، 10 سے 15 منٹ"], ["ارفعه فقط بطريقة النقل الصحيحة، ومع مساعد إن لزم", "Lift only with the correct transfer method, with a helper if needed", "صرف صحیح طریقے سے، ضرورت ہو تو مددگار کے ساتھ اٹھائیں"]],
+      dont: [["لا تضع الكمادة الباردة مباشرة على الجلد", "Never put the cold pack directly on skin", "ٹھنڈا پیک براہ راست جلد پر نہ رکھیں"]],
+      kit: ["coldpack", "gauze", "blanket"] },
+    { id: "bleed", ic: "bandage", crit: false,
+      t: ["جرح أو نزيف", "Cut or bleeding", "زخم یا خون بہنا"],
+      call: [["النزيف لا يتوقف بعد 10 دقائق من الضغط", "Bleeding does not stop after 10 minutes of pressure", "10 منٹ دبانے کے بعد بھی خون نہ رکے"], ["جرح عميق أو كبير", "A deep or large wound", "گہرا یا بڑا زخم"], ["نزيف من الرأس بعد سقوط", "Bleeding from the head after a fall", "گرنے کے بعد سر سے خون"]],
+      st: [["البس القفازات", "Put on gloves", "دستانے پہنیں"], ["اضغط بشاش نظيف ضغطا ثابتا 10 دقائق", "Press firmly with clean gauze for 10 minutes", "صاف گاز سے 10 منٹ مضبوطی سے دبائیں"], ["إذا تشبّع الشاش، ضع فوقه شاشا جديدا ولا تنزعه", "If the gauze soaks through, add more on top, do not remove it", "گاز بھیگ جائے تو اوپر اور رکھیں، ہٹائیں نہیں"], ["بعد توقف النزيف: نظف حوله بالمطهر وغطه بالضماد", "Once it stops: clean around it with antiseptic and cover it", "خون رکنے پر: ارد گرد جراثیم کش سے صاف کریں اور ڈھانپیں"]],
+      dont: [["لا تنزع أي جسم مغروس في الجرح", "Do not pull out anything stuck in the wound", "زخم میں پھنسی چیز نہ نکالیں"]],
+      kit: ["gloves", "gauze", "bandage", "antiseptic"] },
+    { id: "skin", ic: "skin", crit: false, pharm: true,
+      t: ["احمرار أو قرحة ضغط", "Redness or pressure sore", "سرخی یا دباؤ کا زخم"],
+      call: [["الجلد مفتوح أو يخرج منه سائل", "The skin is open or oozing", "جلد کھلی ہو یا رس رہی ہو"], ["الاحمرار لا يزول بعد تخفيف الضغط", "Redness does not fade after relieving pressure", "دباؤ ہٹانے کے بعد بھی سرخی رہے"], ["حرارة أو رائحة", "Warmth or a bad smell", "گرمی یا بدبو"]],
+      st: [["خفف الضغط عن المكان: غيّر وضعيته قليلا إن كان ذلك آمنا", "Relieve pressure on the spot: change their position slightly if safe", "جگہ سے دباؤ ہٹائیں: محفوظ ہو تو پوزیشن تھوڑی بدلیں"], ["إذا كان الجلد مفتوحا: غطه بضماد الهيدروكولويد", "If the skin is open: cover it with the hydrocolloid dressing", "جلد کھلی ہو: ہائیڈروکولائیڈ ڈریسنگ سے ڈھانپیں"], ["أخبر أهله، وسجّل مكان الاحمرار لمتابعته", "Tell the family, and note where the redness is to follow it up", "گھر والوں کو بتائیں، اور سرخی کی جگہ نوٹ کریں"]],
+      dont: [["لا تدلك المنطقة الحمراء", "Do not rub the red area", "سرخ جگہ کو نہ ملیں"]],
+      kit: ["hydrocolloid", "barrier"] }
+  ];
+
+  /* ---------- kit ---------- */
+  var ITEMS = {
+    gloves: { ic: "glove", n: ["قفازات طبية", "Medical gloves", "طبی دستانے"], h: ["البسها قبل لمس أي جرح أو سوائل جسم", "Wear them before touching any wound or body fluids", "زخم یا جسمانی رطوبت چھونے سے پہلے پہنیں"] },
+    gauze: { ic: "square", n: ["شاش معقم", "Sterile gauze pads", "جراثیم سے پاک گاز"], h: ["للضغط على النزيف وتغطية الجروح", "To press on bleeding and cover wounds", "خون روکنے اور زخم ڈھانپنے کے لیے"] },
+    bandage: { ic: "bandage", n: ["رباط ضاغط", "Elastic bandage", "لچکدار پٹی"], h: ["لتثبيت الشاش أو دعم الالتواء", "To hold gauze in place or support a sprain", "گاز باندھنے یا موچ کو سہارا دینے کے لیے"] },
+    triangle: { ic: "triangle", n: ["رباط مثلث", "Triangular bandage", "تکونی پٹی"], h: ["لتعليق الذراع المصابة", "As a sling for an injured arm", "زخمی بازو کے لیے جھولا"] },
+    plasters: { ic: "bandage", n: ["لصقات جروح", "Adhesive plasters", "زخم کی پٹیاں"], h: ["للجروح الصغيرة بعد تنظيفها", "For small cuts after cleaning", "صاف کرنے کے بعد چھوٹے زخموں پر"] },
+    antiseptic: { ic: "drop", n: ["مناديل مطهرة", "Antiseptic wipes", "جراثیم کش وائپس"], h: ["لتنظيف الجلد حول الجرح", "To clean the skin around a wound", "زخم کے ارد گرد جلد صاف کرنے کے لیے"] },
+    scissors: { ic: "scissors", n: ["مقص طبي", "Medical scissors", "طبی قینچی"], h: ["لقص الشاش، أو الأحزمة والملابس عند الضرورة", "To cut gauze, or straps and clothing when needed", "گاز، یا ضرورت پر پٹے اور کپڑے کاٹنے کے لیے"] },
+    faceshield: { ic: "shield", n: ["واقي تنفس للإنعاش", "CPR face shield", "سی پی آر فیس شیلڈ"], h: ["للإنعاش الفموي إذا كنت مدربا", "For rescue breaths if you are trained", "تربیت ہو تو مصنوعی سانس کے لیے"] },
+    blanket: { ic: "blanket", n: ["بطانية حرارية", "Thermal blanket", "حرارتی کمبل"], h: ["للحفاظ على حرارة الجسم بعد الإصابة", "To keep the body warm after an injury", "چوٹ کے بعد جسم گرم رکھنے کے لیے"] },
+    coldpack: { ic: "snow", n: ["كمادة باردة فورية", "Instant cold pack", "فوری ٹھنڈا پیک"], h: ["اضغطها لتبرد، ولفها بقماش قبل وضعها", "Squeeze to activate, and wrap it in cloth before use", "دبا کر ٹھنڈا کریں، کپڑے میں لپیٹ کر لگائیں"], c: ["لا تضعها مباشرة على الجلد، خصوصا لمن لا يشعر بأطرافه", "Never directly on skin, especially for someone without sensation", "براہ راست جلد پر نہیں، خاص طور پر جنہیں احساس نہ ہو"] },
+    burngel: { ic: "tube", n: ["جل الحروق", "Burn gel", "جلنے کا جیل"], h: ["بعد تبريد الحرق بالماء 20 دقيقة", "After cooling the burn under water for 20 minutes", "جلی جگہ 20 منٹ پانی سے ٹھنڈا کرنے کے بعد"] },
+    eyewash: { ic: "eye", n: ["محلول غسيل العين", "Eye wash saline", "آنکھ دھونے کا محلول"], h: ["لغسل العين من الغبار أو أي مادة", "To rinse dust or any substance from the eye", "آنکھ سے مٹی یا کوئی چیز دھونے کے لیے"] },
+    glucose: { ic: "drop", n: ["جل جلوكوز", "Glucose gel", "گلوکوز جیل"], h: ["لهبوط السكر إذا كان واعيا ويبلع جيدا، حسب النشرة", "For low sugar if awake and swallowing well, as the leaflet says", "شوگر کم ہو، ہوش میں ہو اور ٹھیک نگلے تو، ہدایات کے مطابق"], c: ["لا تعطه لمن هو غير واعٍ أو لا يبلع", "Never if unconscious or unable to swallow", "بے ہوش ہو یا نگل نہ سکے تو کبھی نہیں"] },
+    cushion: { ic: "pillow", n: ["وسادة رأس لينة", "Soft head cushion", "نرم سر کا تکیہ"], h: ["لحماية الرأس أثناء نوبة الصرع", "To protect the head during a seizure", "مرگی کے دورے میں سر کی حفاظت"] },
+    hydrocolloid: { ic: "square", n: ["ضماد هيدروكولويد", "Hydrocolloid dressing", "ہائیڈروکولائیڈ ڈریسنگ"], h: ["لتغطية احتكاك الجلد أو الجرح السطحي", "To cover skin rubbing or a shallow wound", "جلد کی رگڑ یا سطحی زخم ڈھانپنے کے لیے"] },
+    barrier: { ic: "tube", n: ["كريم حماية الجلد", "Skin barrier cream", "جلد کی حفاظتی کریم"], h: ["لحماية الجلد من الرطوبة والاحتكاك", "Protects skin from moisture and rubbing", "نمی اور رگڑ سے جلد بچاتی ہے"] },
+    pads: { ic: "layers", n: ["فوط ومفارش طبية", "Incontinence pads and underpads", "ڈائپر پیڈ اور بچھونے"], h: ["للتغيير أثناء الرحلة، مع الحفاظ على خصوصيته", "For changes during the trip, keeping their privacy", "سفر میں تبدیلی کے لیے، پرائیویسی کا خیال رکھیں"] },
+    wipes: { ic: "drop", n: ["مناديل مبللة", "Wet wipes", "گیلے وائپس"], h: ["للنظافة الشخصية", "For personal hygiene", "ذاتی صفائی کے لیے"] },
+    wastebags: { ic: "bag", n: ["أكياس نفايات طبية", "Clinical waste bags", "طبی فضلے کے تھیلے"], h: ["للمستلزمات المستعملة والملوثة", "For used and soiled items", "استعمال شدہ اور گندی چیزوں کے لیے"] },
+    coolingtowel: { ic: "towel", n: ["منشفة تبريد", "Cooling towel", "ٹھنڈا تولیہ"], h: ["بللها وضعها على الرقبة", "Wet it and place it on the neck", "گیلا کر کے گردن پر رکھیں"] },
+    water: { ic: "drop", n: ["أكياس ماء للطوارئ", "Emergency water pouches", "ہنگامی پانی کی تھیلیاں"], h: ["للشرب أو التبريد عند الحاجة", "For drinking or cooling when needed", "پینے یا ٹھنڈک کے لیے"] },
+    seizurecard: { ic: "card", n: ["بطاقة إسعاف الصرع", "Seizure first aid card", "مرگی فرسٹ ایڈ کارڈ"], h: ["خطوات مطبوعة بالعربي والإنجليزي", "Printed steps in Arabic and English", "عربی اور انگریزی میں چھپے مراحل"] },
+    adcard: { ic: "card", n: ["بطاقة الخلل اللاإرادي", "Autonomic dysreflexia card", "آٹونومک ڈس ریفلیکسیا کارڈ"], h: ["تُعطى للمسعفين مع الراكب", "Hand it to paramedics with the passenger", "طبی عملے کو مسافر کے ساتھ دیں"] },
+    commboard: { ic: "talk", n: ["لوحة تواصل مطبوعة", "Printed communication board", "چھپا ہوا بات چیت بورڈ"], h: ["للراكب الذي لا يتكلم، إذا لم يتوفر الجوال", "For a non-speaking passenger when no phone is available", "نہ بولنے والے مسافر کے لیے جب فون نہ ہو"] },
+    flashlight: { ic: "bulb", n: ["مصباح يدوي", "Flashlight", "ٹارچ"], h: ["للتعامل مع الحالات ليلا", "For handling situations at night", "رات کے وقت کے لیے"] }
+  };
+  var VERSIONS = [
+    { id: "vehicle", n: ["حقيبة المركبة", "Vehicle kit", "گاڑی کی کٹ"], items: ["gloves", "gauze", "bandage", "triangle", "plasters", "antiseptic", "scissors", "faceshield", "blanket", "coldpack", "burngel", "eyewash", "glucose", "cushion", "hydrocolloid", "barrier", "pads", "wipes", "wastebags", "coolingtowel", "water", "seizurecard", "adcard", "commboard"] },
+    { id: "bus", n: ["حقيبة الحافلة", "Bus kit", "بس کی کٹ"], items: ["gloves", "gauze", "bandage", "triangle", "plasters", "antiseptic", "scissors", "faceshield", "blanket", "coldpack", "burngel", "eyewash", "glucose", "cushion", "hydrocolloid", "barrier", "pads", "wipes", "wastebags", "coolingtowel", "water", "seizurecard", "adcard", "commboard", "flashlight"] },
+    { id: "attendant", n: ["حقيبة المرافق", "Attendant pouch", "معاون کا پاؤچ"], items: ["gloves", "plasters", "antiseptic", "glucose", "coldpack", "wipes", "pads", "seizurecard", "commboard"] }
+  ];
+
+  var CHECKS = [
+    ["الكرسي المتحرك مثبّت بأربع نقاط", "Wheelchair secured at 4 points", "وہیل چیئر 4 جگہوں سے بندھی ہے"],
+    ["حزام الراكب مربوط", "Passenger seatbelt fastened", "مسافر کی سیٹ بیلٹ بندھی ہے"],
+    ["فرامل الكرسي مشدودة", "Wheelchair brakes on", "وہیل چیئر کی بریک لگی ہے"],
+    ["المنحدر أو الرافعة يعمل ومغلق بأمان", "Ramp or lift working and locked", "ریمپ یا لفٹ ٹھیک اور بند ہے"],
+    ["حقيبة الإسعافات في مكانها", "First aid kit in place", "فرسٹ ایڈ کٹ اپنی جگہ پر ہے"],
+    ["التكييف يعمل، والماء متوفر", "Air conditioning working, water available", "اے سی چل رہا ہے، پانی موجود ہے"],
+    ["أدوية الراكب وحقيبته معه", "Passenger's medicines and bag on board", "مسافر کی دوائیں اور بیگ ساتھ ہیں"],
+    ["أرقام أولياء الأمور محفوظة", "Guardians' numbers saved", "سرپرستوں کے نمبر محفوظ ہیں"]
+  ];
+
+  var CARDS = [
+    { id: "pain", ic: "bolt", col: "#B0281B", bg: "#FCE5E1", t: ["أشعر بألم", "I am in pain", "مجھے درد ہے"] },
+    { id: "toilet", ic: "toilet", col: "#1D4E89", bg: "#DCE7F5", t: ["أريد الحمام", "I need the toilet", "مجھے باتھ روم جانا ہے"] },
+    { id: "water", ic: "drop", col: "#1F6FAE", bg: "#DCEEFA", t: ["أريد ماء", "I want water", "مجھے پانی چاہیے"] },
+    { id: "hungry", ic: "food", col: "#8F5609", bg: "#FAEBD2", t: ["أنا جائع", "I am hungry", "مجھے بھوک لگی ہے"] },
+    { id: "hot", ic: "sun", col: "#B4520A", bg: "#FDE7D4", t: ["أشعر بالحر", "I feel hot", "مجھے گرمی لگ رہی ہے"] },
+    { id: "cold", ic: "snow", col: "#2B5FA6", bg: "#DCE7F5", t: ["أشعر بالبرد", "I feel cold", "مجھے سردی لگ رہی ہے"] },
+    { id: "tired", ic: "bed", col: "#5B4B8A", bg: "#E8E3F5", t: ["أنا متعب", "I am tired", "میں تھکا ہوا ہوں"] },
+    { id: "scared", ic: "scared", col: "#5B4B8A", bg: "#E8E3F5", t: ["أنا خائف", "I am scared", "مجھے ڈر لگ رہا ہے"] },
+    { id: "stop", ic: "hand", col: "#B0281B", bg: "#FCE5E1", t: ["توقف من فضلك", "Please stop", "براہ کرم رکیں"] },
+    { id: "yes", ic: "check", col: "#1D6B3A", bg: "#DDF1E3", t: ["نعم", "Yes", "ہاں"] },
+    { id: "no", ic: "x", col: "#B0281B", bg: "#FCE5E1", t: ["لا", "No", "نہیں"] },
+    { id: "family", ic: "users", col: "#1D4E89", bg: "#DCE7F5", t: ["أريد أهلي", "I want my family", "مجھے اپنے گھر والے چاہئیں"] }
+  ];
+  var BODY = [["رأسي", "My head", "میرا سر"], ["صدري", "My chest", "میرا سینہ"], ["بطني", "My stomach", "میرا پیٹ"], ["ظهري", "My back", "میری کمر"], ["يدي", "My arm", "میرا ہاتھ"], ["رجلي", "My leg", "میری ٹانگ"]];
+
+  /* ---------- icons ---------- */
+  var IC = {
+    home: '<path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>',
+    users: '<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><circle cx="17" cy="9" r="2.5"/><path d="M16 14.5c2.7.1 4.7 1.9 5.5 5"/>',
+    talk: '<path d="M4 5h16v11H9l-5 4z"/><path d="M8 9h8M8 12h5"/>',
+    bag: '<rect x="3" y="7" width="18" height="13" rx="3"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="M12 11v5M9.5 13.5h5"/>',
+    siren: '<path d="M6 18v-5a6 6 0 0 1 12 0v5"/><path d="M4 18h16v3H4z"/><path d="M12 3V1M4.2 6.2 2.8 4.8M19.8 6.2l1.4-1.4"/>',
+    wheel: '<circle cx="11" cy="4" r="1.8"/><path d="M10 7v6h6l3 5"/><path d="M10 10h5"/><path d="M8.2 10.5A5.5 5.5 0 1 0 15 17"/>',
+    bolt: '<path d="M13 2 4 14h7l-1 8 9-12h-7z"/>',
+    choke: '<path d="M8 3v4a4 4 0 0 0 8 0V3"/><path d="M12 11v4"/><path d="M7 21c0-3 2.2-6 5-6s5 3 5 6"/><path d="M5 9l-2 1M19 9l2 1"/>',
+    lungs: '<path d="M12 3v8"/><path d="M12 11c-1 1-2 1.5-3 1.5"/><path d="M12 11c1 1 2 1.5 3 1.5"/><path d="M8.5 7C5 7 3 12 3 16.5 3 19 4.5 20 6 20c2.5 0 3.5-2 3.5-5V8.5"/><path d="M15.5 7C19 7 21 12 21 16.5c0 2.5-1.5 3.5-3 3.5-2.5 0-3.5-2-3.5-5V8.5"/>',
+    drop: '<path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/>',
+    spine: '<rect x="9" y="2.5" width="6" height="3.5" rx="1"/><rect x="9" y="7.5" width="6" height="3.5" rx="1"/><rect x="9" y="12.5" width="6" height="3.5" rx="1"/><rect x="9" y="17.5" width="6" height="3.5" rx="1"/><path d="M6 6.5 3.5 5M18 6.5 20.5 5"/>',
+    thermo: '<path d="M14 14.8V4.5a2 2 0 0 0-4 0v10.3a4 4 0 1 0 4 0z"/><path d="M12 9v7"/>',
+    fall: '<circle cx="15" cy="4.5" r="1.8"/><path d="M13.5 8 9 11l1.5 4.5L7 20"/><path d="M13.5 8 16 13l4 1"/><path d="M3 21h18"/>',
+    bandage: '<rect x="2.5" y="8.5" width="19" height="7" rx="3.5" transform="rotate(-45 12 12)"/><path d="M10.5 10.5h.01M13.5 13.5h.01M10.5 13.5h.01M13.5 10.5h.01"/>',
+    skin: '<path d="M4 18c3-2 5-2 8 0s5 2 8 0"/><path d="M4 13c3-2 5-2 8 0s5 2 8 0"/><circle cx="12" cy="7" r="2.5"/>',
+    glove: '<path d="M7 21v-6L4.5 11a1.5 1.5 0 0 1 2.5-1.6L9 12V4.5a1.5 1.5 0 0 1 3 0V11V3.5a1.5 1.5 0 0 1 3 0V11V5.5a1.5 1.5 0 0 1 3 0V15l-2 6z"/>',
+    square: '<rect x="4" y="4" width="16" height="16" rx="3"/><path d="M4 9h16M9 4v16"/>',
+    triangle: '<path d="M3 19 12 5l9 14z"/>',
+    scissors: '<circle cx="6" cy="6" r="2.5"/><circle cx="6" cy="18" r="2.5"/><path d="M8 7.5 20 17M8 16.5 20 7"/>',
+    shield: '<path d="M12 3 4 6v6c0 4.5 3.5 7.5 8 9 4.5-1.5 8-4.5 8-9V6z"/><path d="M9 12h6M12 9v6"/>',
+    blanket: '<path d="M4 6h16v12H4z"/><path d="M4 10h16M4 14h16"/>',
+    snow: '<path d="M12 2v20M3.3 7l17.4 10M3.3 17L20.7 7"/><path d="M9.5 3.5 12 6l2.5-2.5M9.5 20.5 12 18l2.5 2.5"/>',
+    tube: '<path d="M7 3h10l-1 4H8z"/><path d="M8 7h8l1 12a2 2 0 0 1-2 2H9a2 2 0 0 1-2-2z"/><path d="M10 12h4"/>',
+    eye: '<path d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"/><circle cx="12" cy="12" r="2.5"/>',
+    pillow: '<path d="M4 8c0-2 2-3 8-3s8 1 8 3v8c0 2-2 3-8 3s-8-1-8-3z"/>',
+    layers: '<path d="M12 3 2 8l10 5 10-5z"/><path d="M2 13l10 5 10-5"/>',
+    towel: '<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M5 8h14M9 13h6"/>',
+    card: '<rect x="3" y="5" width="18" height="14" rx="2.5"/><circle cx="9" cy="11" r="2"/><path d="M6 16c.5-1.5 1.7-2 3-2s2.5.5 3 2M14 10h4M14 13h3"/>',
+    bulb: '<path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/>',
+    toilet: '<path d="M6 3h6v7H6z"/><path d="M4 10h15a6 6 0 0 1-6 6h-.5l.8 5H8.2l.8-5A5 5 0 0 1 4 10z"/>',
+    food: '<path d="M4 3v8a3 3 0 0 0 6 0V3M7 3v18"/><path d="M17 21V3c-2 0-3.5 2.5-3.5 6S15 13 17 13"/>',
+    sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+    bed: '<path d="M3 18V7M3 14h18v4M21 14v-2a3 3 0 0 0-3-3h-7v5"/><circle cx="7" cy="11" r="1.5"/>',
+    scared: '<circle cx="12" cy="12" r="9"/><circle cx="9" cy="10" r="1"/><circle cx="15" cy="10" r="1"/><ellipse cx="12" cy="16" rx="2" ry="2.5"/>',
+    hand: '<path d="M7 11V5a1.5 1.5 0 0 1 3 0v5V3.5a1.5 1.5 0 0 1 3 0V10V5a1.5 1.5 0 0 1 3 0v6.5V8a1.5 1.5 0 0 1 3 0v7c0 3.5-2.5 6-6 6h-1c-2.5 0-4-1-5.5-3L4 14a1.5 1.5 0 0 1 2.2-2z"/>',
+    check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+    x: '<path d="M6 6l12 12M18 6 6 18"/>',
+    phone: '<path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/>',
+    whats: '<path d="M20.5 11.6a8.5 8.5 0 0 1-12.6 7.5L3.5 20.5l1.4-4.3a8.5 8.5 0 1 1 15.6-4.6z"/><path d="M9 8.5c0 3.5 2.5 6.5 6.5 6.5l1-1.6-2-1-1 .8c-1.2-.5-2.2-1.5-2.7-2.7l.8-1-1-2z"/>',
+    chev: '<path d="M9 6l6 6-6 6"/>',
+    arrow: '<path d="M15 6l-6 6 6 6"/>',
+    alert: '<path d="M12 3l9.5 17h-19z"/><path d="M12 10v4M12 17h.01"/>',
+    plus: '<path d="M12 5v14M5 12h14"/>',
+    lock: '<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+    globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3.5 3 14.5 0 18M12 3c-3 3.5-3 14.5 0 18"/>',
+    copy: '<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/>',
+    clip: '<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V3h6v1M9 10h6M9 14h6M9 18h3"/>',
+    clock: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+    van: '<path d="M2 16V7a2 2 0 0 1 2-2h11l4 4h1a2 2 0 0 1 2 2v5h-2"/><path d="M2 16h3M9 16h6"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/><path d="M15 5v4h4"/>',
+    note: '<path d="M5 3h10l4 4v14H5z"/><path d="M15 3v4h4M8 12h8M8 16h5"/>'
+  };
+  function icon(name, size) {
+    var s = size || 22;
+    return '<svg width="' + s + '" height="' + s + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (IC[name] || "") + "</svg>";
+  }
+
+  /* ---------- storage ---------- */
+  var STORE_OK = (function () { try { localStorage.setItem("mf-test", "1"); localStorage.removeItem("mf-test"); return true; } catch (e) { return false; } })();
+  var KEYS = ["lang", "agreed", "onboarded", "version", "veh", "pax", "kit", "reports", "trip", "trips", "large"];
+  function load(k, d) { try { var v = localStorage.getItem("mf-" + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } }
+  function store(k, v) { try { localStorage.setItem("mf-" + k, JSON.stringify(v)); } catch (e) {} }
+  function keepStorage() { try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(function () {}); } catch (e) {} }
+
+  var today = new Date().toISOString().slice(0, 10);
+  var state = {
+    lang: load("lang", null),
+    version: load("version", "vehicle"),
+    veh: load("veh", { org: "", no: "", driver: "" }),
+    pax: load("pax", []),
+    kit: load("kit", {}),
+    reports: load("reports", []),
+    trip: load("trip", { phase: "idle", checks: [], start: 0, last: false }),
+    trips: load("trips", { d: today, n: 0 }),
+    large: load("large", false),
+    tab: "home", view: null, onboard: 0
+  };
+  if (state.trips.d !== today) state.trips = { d: today, n: 0 };
+  if (state.large) document.body.classList.add("large");
+
+  function L() { return LI[state.lang || "ar"]; }
+  function t(key) { var v = S[key]; return v ? v[L()] : key; }
+  function tr(arr) { return arr[L()]; }
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+  function versionObj() { return VERSIONS.filter(function (v) { return v.id === state.version; })[0] || VERSIONS[0]; }
+  function guide(id) { return GUIDES.filter(function (g) { return g.id === id; })[0]; }
+  function paxById(id) { return state.pax.filter(function (p) { return String(p.id) === String(id); })[0]; }
+  function telHref(n) { return "tel:" + String(n || "").replace(/[^\d+]/g, ""); }
+  function fmt(ts) { var d = new Date(ts); return d.toLocaleString(state.lang === "ar" ? "ar-SA-u-nu-latn-ca-gregory" : state.lang === "ur" ? "ur-PK" : "en-GB", { weekday: "short", hour: "2-digit", minute: "2-digit" }); }
+  function mmss(ms) { var s = Math.max(0, Math.floor(ms / 1000)), m = Math.floor(s / 60); return (m < 10 ? "0" : "") + m + ":" + (s % 60 < 10 ? "0" : "") + (s % 60); }
+
+  function itemStatus(id) {
+    var k = state.kit[id] || {};
+    if (k.used) return "used";
+    if (!k.exp) return "none";
+    var days = (new Date(k.exp) - new Date(today)) / 86400000;
+    if (days < 0) return "exp";
+    if (days <= 30) return "soon";
+    return "ok";
+  }
+  function kitCounts() {
+    var c = { ok: 0, soon: 0, bad: 0, none: 0 };
+    versionObj().items.forEach(function (id) { var s = itemStatus(id); if (s === "used" || s === "exp") c.bad++; else if (s === "soon") c.soon++; else if (s === "ok") c.ok++; else c.none++; });
+    return c;
+  }
+
+  var appEl = document.getElementById("app"), view = document.getElementById("view"), layer = document.getElementById("layer");
+
+  function applyLang() {
+    var lg = LANGS.filter(function (l) { return l.id === (state.lang || "ar"); })[0];
+    [appEl, layer].forEach(function (el) { el.setAttribute("dir", lg.dir); el.setAttribute("lang", lg.id); });
+    document.getElementById("t-app").textContent = t("app");
+    document.getElementById("t-brand").textContent = t("brand");
+    document.getElementById("langbtn").innerHTML = icon("globe", 18) + "<span>" + esc(lg.name) + "</span>";
+    var sb = document.getElementById("setbtn"); sb.innerHTML = icon("lock", 18); sb.setAttribute("aria-label", t("setT"));
+    document.title = t("app");
+    renderTabs();
+  }
+  function renderTabs() {
+    var tabs = [["home", "home", "tHome"], ["pax", "users", "tPax"], ["talk", "talk", "tTalk"], ["kit", "bag", "tKit"], ["sos", "siren", "tSos"]];
+    document.getElementById("tabs").innerHTML = tabs.map(function (x) {
+      return '<button type="button" data-tab="' + x[0] + '"' + (x[0] === "sos" ? ' class="sos-tab"' : "") + (state.tab === x[0] && !state.view ? ' aria-current="page"' : state.tab === x[0] ? ' aria-current="page"' : "") + '><span class="tic">' + icon(x[1], 22) + "</span>" + esc(t(x[2])) + "</button>";
+    }).join("");
+  }
+  var ticker = null;
+  function stopTick() { if (ticker) clearInterval(ticker); ticker = null; }
+  function render() {
+    stopTick();
+    var v = state.view, html;
+    if (v && v.name === "guide") html = viewGuide();
+    else if (v && v.name === "check") html = viewCheck();
+    else if (v && v.name === "paxEdit") html = viewPaxEdit();
+    else if (v && v.name === "paxShow") html = viewPaxShow();
+    else if (v && v.name === "report") html = viewReport();
+    else if (v && v.name === "refill") html = viewRefill();
+    else if (state.tab === "home") html = viewHome();
+    else if (state.tab === "pax") html = viewPax();
+    else if (state.tab === "talk") html = viewTalk();
+    else if (state.tab === "kit") html = viewKit();
+    else html = viewSos();
+    view.innerHTML = html;
+    view.classList.remove("view-enter"); void view.offsetWidth; view.classList.add("view-enter");
+    if ((v && v.name === "guide" && v.tStart && !v.tEnd) || (!v && state.tab === "home" && state.trip.phase === "on")) {
+      ticker = setInterval(tick, 500); tick();
+    }
+  }
+  function go(tab) { state.tab = tab; state.view = null; renderTabs(); render(); try { window.scrollTo({ top: 0 }); } catch (e) { window.scrollTo(0, 0); } }
+  function open(v) { state.view = v; render(); window.scrollTo(0, 0); }
+  function head(title) { return '<div class="flowtop"><button type="button" class="back" data-back aria-label="' + esc(t("back")) + '">' + icon("arrow", 22) + "</button><h2 style=\"font-size:20px\">" + esc(title) + "</h2></div>"; }
+
+  function tick() {
+    var v = state.view;
+    if (v && v.name === "guide" && v.tStart) {
+      var ms = Date.now() - v.tStart, el = document.getElementById("stime"), box = document.getElementById("sbox");
+      if (el) el.textContent = mmss(ms);
+      if (box && ms >= 300000 && !box.classList.contains("warn")) { box.classList.add("warn"); var w = document.getElementById("swarn"); if (w) w.hidden = false; try { navigator.vibrate && navigator.vibrate([300, 150, 300]); } catch (e) {} }
+    }
+    if (!v && state.trip.phase === "on") { var tt = document.getElementById("ttime"); if (tt) tt.textContent = mmss(Date.now() - state.trip.start); }
+  }
+
+  /* ---------- views ---------- */
+  function sosStrip() {
+    return '<div class="sos"><span class="lbl">' + esc(t("sosQ")) + '</span><a class="callbtn" href="tel:997">' + icon("phone", 18) + '<span class="num">997</span></a><a class="callbtn ghost" href="tel:911"><span class="num">911</span></a></div>';
+  }
+  function reviewBanner() {
+    return CONFIG.reviewedBy ? '<div class="banner">' + icon("check", 16) + "<span>" + esc(t("reviewed").replace("{name}", CONFIG.reviewedBy).replace("{date}", CONFIG.reviewedOn)) + "</span></div>" : '<div class="banner amber">' + icon("alert", 16) + "<span>" + esc(t("pending")) + "</span></div>";
+  }
+  function viewHome() {
+    var tr0 = state.trip, heroInner;
+    if (tr0.phase === "on") {
+      heroInner = '<div class="row between" style="position:relative;z-index:1"><b>' + icon("van", 20) + " " + esc(t("tripOn")) + '</b><span class="timer" id="ttime" style="font-size:22px">00:00</span></div>' +
+        '<div class="hbtns"><button type="button" class="hb" data-endtrip>' + esc(t("endTrip")) + "</button></div>";
+    } else {
+      var done = tr0.checks.length;
+      heroInner = "<h1>" + esc(t("hello")) + "</h1><p>" + esc(t("heroSub")) + '</p><div style="position:relative;z-index:1" class="stack"><div class="row between small"><span>' + esc(t("preTrip")) + '</span><span class="num">' + done + " / " + CHECKS.length + '</span></div><div class="prog"><i style="width:' + Math.round(done / CHECKS.length * 100) + '%"></i></div></div>' +
+        '<div class="hbtns"><button type="button" class="hb" data-open="check">' + icon("check", 18) + esc(t("startCheck")) + '</button><span class="small" style="align-self:center;opacity:.85">' + esc(t("tripsToday")) + ': <span class="num">' + state.trips.n + "</span></span></div>";
+    }
+    var tiles = GUIDES.map(function (g) {
+      return '<button type="button" class="etile' + (g.crit ? " crit" : "") + '" data-guide="' + g.id + '"><span class="ic">' + icon(g.ic, 24) + "</span><b>" + esc(tr(g.t).replace(/\s*\(.*\)$/, "")) + "</b></button>";
+    }).join("");
+    var kc = kitCounts();
+    var rep = state.reports.slice(0, 3).map(function (r) {
+      var g = guide(r.g);
+      return '<div><span class="dot" style="background:' + (r.amb ? "var(--danger)" : "var(--brand)") + '"></span><span>' + esc(g ? tr(g.t).replace(/\s*\(.*\)$/, "") : "") + (r.pax ? ' · <span class="muted">' + esc(r.pax) + "</span>" : "") + "</span><time>" + esc(fmt(r.ts)) + "</time></div>";
+    }).join("");
+    return '<section class="hero">' + heroInner + "</section>" + reviewBanner() + sosStrip() +
+      '<section class="stack"><div class="sec-h"><h2>' + esc(t("whatHappening")) + '</h2><p class="muted small">' + esc(t("whatSub")) + '</p></div><div class="grid3">' + tiles + "</div></section>" +
+      '<section class="stack">' +
+      actionBtn("talk", "talk", "#DDF1E3", "#1D6B3A", t("aTalk"), t("aTalkSub"), "") +
+      actionBtn("pax", "users", "var(--brand-soft)", "var(--brand)", t("aPax"), t("aPaxSub"), state.pax.length ? '<span class="badge" style="background:var(--brand)">' + state.pax.length + "</span>" : "") +
+      actionBtn("kit", "bag", "var(--amber-soft)", "var(--amber)", t("aKit"), kc.bad ? t("aKitBad").replace("{n}", kc.bad) : t("aKitOk"), kc.bad ? '<span class="badge">' + kc.bad + "</span>" : "") +
+      "</section>" +
+      (rep ? '<section class="card stack"><h3>' + icon("note", 18) + " " + esc(t("recent")) + '</h3><div class="log">' + rep + "</div></section>" : "") +
+      '<p class="foot">' + esc(t("disclaimer")) + "<br>" + esc(t("foot")) + "</p>";
+  }
+  function actionBtn(tab, ic, bg, fg, title, sub, extra) {
+    return '<button type="button" class="action" data-tab="' + tab + '"><span class="ic" style="background:' + bg + ";color:" + fg + '">' + icon(ic, 22) + "</span><div><b>" + esc(title) + '</b><span class="s">' + esc(sub) + "</span></div>" + (extra || "") + '<span class="chev">' + icon("chev", 20) + "</span></button>";
+  }
+
+  function viewCheck() {
+    var tr0 = state.trip;
+    if (tr0.phase === "on") {
+      return head(t("endTrip")) + '<section class="card stack"><label class="check key' + (tr0.last ? " on" : "") + '"><input type="checkbox" data-lastcheck' + (tr0.last ? " checked" : "") + "><b>" + esc(t("lastCheck")) + '</b></label><p class="small muted">' + esc(t("endHint")) + '</p></section><button type="button" class="btn primary" data-confirmend' + (tr0.last ? "" : " disabled") + ">" + esc(t("endTrip")) + "</button>";
+    }
+    var items = CHECKS.map(function (c, i) { var on = tr0.checks.indexOf(i) !== -1; return '<label class="check' + (on ? " on" : "") + '"><input type="checkbox" data-tc="' + i + '"' + (on ? " checked" : "") + "><span>" + esc(tr(c)) + "</span></label>"; }).join("");
+    var all = tr0.checks.length === CHECKS.length;
+    return head(t("checkT")) + '<p class="muted small">' + esc(t("checkSub")) + '</p><div class="checks">' + items + '</div><div class="btns"><button type="button" class="btn primary" data-starttrip' + (all ? "" : ' style="display:none"') + ' id="gobtn">' + icon("van", 20) + esc(t("goTrip")) + '</button><button type="button" class="btn secondary" data-starttrip' + (all ? ' style="display:none"' : "") + ' id="gobtn2">' + esc(t("goAnyway")) + "</button></div>";
+  }
+
+  function viewGuide() {
+    var v = state.view, g = guide(v.id);
+    var pax = v.pax ? paxById(v.pax) : null;
+    var pchips = state.pax.length ? '<div class="stack" style="gap:6px"><span class="small muted" style="font-weight:600">' + esc(t("forWho")) + '</span><div class="pchips"><button type="button" data-gpax="" aria-pressed="' + (!v.pax) + '">' + esc(t("noOne")) + "</button>" + state.pax.map(function (p) { return '<button type="button" data-gpax="' + p.id + '" aria-pressed="' + (String(v.pax) === String(p.id)) + '">' + esc(p.name) + "</button>"; }).join("") + "</div></div>" : "";
+    var plan = pax ? '<div class="plan"><b>' + esc(t("planT").replace("{name}", pax.name)) + "</b>" + (pax.plan ? "<p style=\"white-space:pre-wrap\">" + esc(pax.plan) + "</p>" : '<p class="small muted">' + esc(t("noPlan")) + "</p>") + (pax.notes ? '<p class="small" style="white-space:pre-wrap">' + esc(pax.notes) + "</p>" : "") + "</div>" : "";
+    var timer = "";
+    if (g.timer) {
+      var running = v.tStart && !v.tEnd;
+      timer = '<div class="stimer' + (running && Date.now() - v.tStart >= 300000 ? " warn" : "") + '" id="sbox"><span class="small muted" style="font-weight:700">' + esc(t("timerT")) + '</span><span class="t" id="stime">' + (v.tStart ? mmss((v.tEnd || Date.now()) - v.tStart) : "00:00") + '</span><p class="small" id="swarn" style="color:var(--danger);font-weight:700"' + (running && Date.now() - v.tStart >= 300000 ? "" : " hidden") + ">" + esc(t("timerWarn")) + "</p>" +
+        (running ? '<button type="button" class="btn secondary" data-tstop style="width:100%">' + esc(t("timerStop")) + "</button>" : v.tEnd ? '<p style="font-weight:700">' + esc(t("lasted").replace("{t}", mmss(v.tEnd - v.tStart))) + "</p>" : '<button type="button" class="btn primary" data-tstart style="width:100%">' + icon("clock", 20) + esc(t("timerStart")) + '</button><p class="small muted">' + esc(t("timerHint")) + "</p>") + "</div>";
+    }
+    var call = '<section class="' + (g.pharm ? "plan" : "callbox") + '"><h3>' + icon(g.pharm ? "whats" : "phone", 20) + " " + esc(g.pharm ? t("pharmIf") : t("call997If")) + '</h3><ul>' + g.call.map(function (c) { return "<li>" + esc(tr(c)) + "</li>"; }).join("") + "</ul>" + (g.pharm ? "" : '<a class="btn danger" href="tel:997">' + icon("phone", 20) + esc(t("call")) + ' <span class="num">997</span></a>') + "</section>";
+    var steps = '<section class="card stack"><h3>' + esc(t("stepsT")) + '</h3><ol class="steps">' + g.st.map(function (s) { return "<li><span>" + esc(tr(s)) + "</span></li>"; }).join("") + "</ol></section>";
+    var dont = '<section class="dont"><h4>' + icon("x", 16) + esc(t("dontT")) + '</h4><ul>' + g.dont.map(function (d) { return "<li>" + esc(tr(d)) + "</li>"; }).join("") + "</ul></section>";
+    var have = versionObj().items;
+    var kit = g.kit.filter(function (k) { return have.indexOf(k) !== -1; }).map(function (k) { return '<button type="button" class="kchip" data-item="' + k + '"><span class="ic">' + icon(ITEMS[k].ic, 18) + "</span>" + esc(tr(ITEMS[k].n)) + "</button>"; }).join("");
+    var after = '<div class="btns"><button type="button" class="btn primary" data-report>' + icon("clip", 20) + esc(t("report")) + "</button>" +
+      (pax && pax.gphone ? '<a class="btn secondary" href="' + esc(telHref(pax.gphone)) + '">' + icon("phone", 18) + esc(t("callGuardian")) + "</a>" : "") +
+      (pax ? '<button type="button" class="btn secondary" data-medic="' + pax.id + '">' + icon("card", 18) + esc(t("showCard")) + "</button>" : "") + "</div>";
+    return head(tr(g.t)) + pchips + plan + (g.timer ? timer + call : call) + steps + dont + (kit ? '<section class="card stack"><h3>' + esc(t("fromKit")) + '</h3><div class="kitchips">' + kit + "</div></section>" : "") + after;
+  }
+
+  function condTags(p) {
+    return (p.conds || []).map(function (c) { var o = CONDS.filter(function (x) { return x.id === c; })[0]; return o ? '<span class="tag red">' + esc(tr(o.t)) + "</span>" : ""; }).join("");
+  }
+  function viewPax() {
+    var list = state.pax.map(function (p) {
+      var d = DIS.filter(function (x) { return x.id === p.dis; })[0];
+      return '<div class="pcard"><div class="row"><span class="avatar">' + esc((p.name || "?").trim().charAt(0)) + '</span><div style="flex:1;min-width:0"><b>' + esc(p.name) + '</b><div class="tags">' + (d ? '<span class="tag blue">' + esc(tr(d.t)) + "</span>" : "") + (p.wheel ? '<span class="tag blue">' + icon("wheel", 12) + " " + esc(t("fWheel")) + "</span>" : "") + condTags(p) + '</div></div></div><div class="row wrap" style="gap:6px"><button type="button" class="btn secondary sm" data-paxshow="' + p.id + '">' + icon("card", 16) + esc(t("showCard").split(" ")[0]) + "</button>" + (p.gphone ? '<a class="btn secondary sm" href="' + esc(telHref(p.gphone)) + '">' + icon("phone", 16) + esc(t("callGuardian")) + "</a>" : "") + '<button type="button" class="btn secondary sm" data-paxedit="' + p.id + '">' + esc(t("edit")) + "</button></div></div>";
+    }).join("");
+    return '<div class="sec-h"><h2>' + esc(t("paxT")) + '</h2><p class="muted small privacy">' + icon("lock", 14) + esc(t("paxSub")) + "</p></div>" +
+      (list || '<div class="card"><p class="muted">' + esc(t("noPax")) + "</p></div>") +
+      '<button type="button" class="btn primary" data-paxedit="">' + icon("plus", 20) + esc(t("addPax")) + "</button>";
+  }
+  function viewPaxShow() {
+    var p = paxById(state.view.id); if (!p) return viewPax();
+    var d = DIS.filter(function (x) { return x.id === p.dis; })[0], cm = COMM.filter(function (x) { return x.id === p.comm; })[0];
+    var rows = [[t("fDis"), d ? tr(d.t) : ""], [t("fComm"), cm ? tr(cm.t) : ""], [t("fConds"), (p.conds || []).map(function (c) { var o = CONDS.filter(function (x) { return x.id === c; })[0]; return o ? tr(o.t) : ""; }).join("، ")], [t("fAllergy"), p.allergy], [t("fMeds"), p.meds], [t("fPlan"), p.plan], [t("fNotes"), p.notes], [t("fGuardian"), (p.gname || "") + (p.gphone ? "  " + p.gphone : "")]];
+    var guides = (p.conds || []).map(function (c) { var o = CONDS.filter(function (x) { return x.id === c; })[0]; return o && o.g ? guide(o.g) : null; }).filter(Boolean);
+    return head(p.name) + '<section class="pcard"><div class="tags">' + (p.wheel ? '<span class="tag blue">' + icon("wheel", 12) + " " + esc(t("fWheel")) + "</span>" : "") + condTags(p) + '</div><dl class="dl">' + rows.filter(function (r) { return (r[1] || "").trim(); }).map(function (r) { return "<dt>" + esc(r[0]) + "</dt><dd>" + esc(r[1]) + "</dd>"; }).join("") + "</dl></section>" +
+      (guides.length ? '<section class="stack"><h3>' + esc(t("whatHappening")) + '</h3><div class="grid3">' + guides.map(function (g) { return '<button type="button" class="etile crit" data-guide="' + g.id + '" data-gp="' + p.id + '"><span class="ic">' + icon(g.ic, 24) + "</span><b>" + esc(tr(g.t).replace(/\s*\(.*\)$/, "")) + "</b></button>"; }).join("") + "</div></section>" : "") +
+      '<div class="btns">' + (p.gphone ? '<a class="btn secondary" href="' + esc(telHref(p.gphone)) + '">' + icon("phone", 18) + esc(t("callGuardian")) + "</a>" : "") + '<button type="button" class="btn danger" data-medic="' + p.id + '">' + icon("card", 18) + esc(t("showCard")) + '</button><button type="button" class="btn secondary" data-tab="talk">' + icon("talk", 18) + esc(t("aTalk")) + "</button></div>";
+  }
+  function viewPaxEdit() {
+    var p = state.view.id ? paxById(state.view.id) : null; p = p || { conds: [] };
+    function opt(list, cur) { return '<option value="">—</option>' + list.map(function (o) { return '<option value="' + o.id + '"' + (o.id === cur ? " selected" : "") + ">" + esc(tr(o.t)) + "</option>"; }).join(""); }
+    function fld(id, lab, val, type, ph) { return '<div class="field"><label for="p-' + id + '">' + esc(lab) + "</label>" + (type === "area" ? '<textarea id="p-' + id + '" name="' + id + '" maxlength="600"' + (ph ? ' placeholder="' + esc(ph) + '"' : "") + ">" + esc(val || "") + "</textarea>" : '<input id="p-' + id + '" name="' + id + '" type="' + (type || "text") + '" maxlength="80" value="' + esc(val || "") + '"' + (type === "tel" ? ' dir="ltr" inputmode="tel"' : "") + ">") + "</div>"; }
+    return head(state.view.id ? p.name : t("addPax")) + '<form class="form card" id="paxform">' +
+      fld("name", t("fName"), p.name) +
+      '<div class="field"><label for="p-dis">' + esc(t("fDis")) + '</label><select id="p-dis" name="dis">' + opt(DIS, p.dis) + "</select></div>" +
+      '<div class="chips"><label><input type="checkbox" name="wheel"' + (p.wheel ? " checked" : "") + ">" + icon("wheel", 16) + esc(t("fWheel")) + "</label></div>" +
+      '<div class="field"><label for="p-comm">' + esc(t("fComm")) + '</label><select id="p-comm" name="comm">' + opt(COMM, p.comm) + "</select></div>" +
+      '<div class="field"><span class="lab">' + esc(t("fConds")) + '</span><div class="chips">' + CONDS.map(function (c) { return '<label><input type="checkbox" name="conds" value="' + c.id + '"' + ((p.conds || []).indexOf(c.id) !== -1 ? " checked" : "") + ">" + esc(tr(c.t)) + "</label>"; }).join("") + "</div></div>" +
+      fld("allergy", t("fAllergy"), p.allergy) + fld("meds", t("fMeds"), p.meds, "area") + fld("plan", t("fPlan"), p.plan, "area") + fld("notes", t("fNotes"), p.notes, "area", t("fNotesPh")) +
+      fld("gname", t("fGuardian"), p.gname) + fld("gphone", t("fGPhone"), p.gphone, "tel") +
+      '<div class="privacy">' + icon("lock", 16) + esc(t("ag3")) + '</div><div class="btns"><button type="submit" class="btn primary">' + esc(t("save")) + "</button>" + (state.view.id ? '<button type="button" class="btn secondary" style="color:var(--danger);border-color:var(--danger)" data-paxrm="' + state.view.id + '">' + esc(t("remove")) + "</button>" : "") + "</div></form>";
+  }
+
+  function viewTalk() {
+    var cards = CARDS.map(function (c) { return '<button type="button" class="cbtn" data-card="' + c.id + '" style="border-color:' + c.bg + '"><span class="ic" style="background:' + c.bg + ";color:" + c.col + '">' + icon(c.ic, 30) + "</span><b>" + esc(tr(c.t)) + "</b></button>"; }).join("");
+    var pcol = ["#1D6B3A", "#2E7D32", "#558B2F", "#7CA013", "#A79A0A", "#C08A08", "#C8700A", "#C4560E", "#B83F14", "#AD2E17", "#9C1F14"];
+    var pain = pcol.map(function (c, i) { return '<button type="button" data-pain="' + i + '" style="background:' + c + '" aria-label="' + i + '">' + i + "</button>"; }).join("");
+    var body = BODY.map(function (b, i) { return '<button type="button" data-bodyp="' + i + '">' + esc(tr(b)) + "</button>"; }).join("");
+    return '<div class="sec-h"><h2>' + esc(t("talkT")) + '</h2><p class="muted small">' + esc(t("talkSub")) + '</p></div><div class="cgrid">' + cards + "</div>" +
+      '<section class="card stack"><h3>' + esc(t("painT")) + '</h3><div class="pain">' + pain + '</div></section><section class="card stack"><h3>' + esc(t("whereT")) + '</h3><div class="bodyp">' + body + "</div></section>";
+  }
+
+  function viewKit() {
+    var v = versionObj(), kc = kitCounts();
+    var seg = VERSIONS.map(function (x) { return '<button type="button" data-version="' + x.id + '" aria-pressed="' + (x.id === v.id) + '">' + esc(tr(x.n)) + "</button>"; }).join("");
+    var items = v.items.map(function (id) {
+      var it = ITEMS[id], st = itemStatus(id), k = state.kit[id] || {};
+      var stc = st === "ok" ? "ok" : st === "soon" ? "soon" : st === "none" ? "none" : "bad";
+      var lab = { ok: "sOk", soon: "sSoon", exp: "sExp", used: "sUsed", none: "sNone" }[st];
+      return '<details class="item" id="item-' + id + '"><summary><span class="ic">' + icon(it.ic, 20) + "</span><b>" + esc(tr(it.n)) + '</b><span class="st ' + stc + '">' + esc(t(lab)) + '</span></summary><div class="body"><p>' + esc(tr(it.h)) + "</p>" + (it.c ? '<p class="caution"><b>' + esc(t("caution")) + ":</b> " + esc(tr(it.c)) + "</p>" : "") +
+        '<div class="field"><label for="exp-' + id + '">' + esc(t("expiry")) + '</label><input type="date" id="exp-' + id + '" data-exp="' + id + '" value="' + esc(k.exp || "") + '"></div><div class="chips"><label><input type="checkbox" data-used="' + id + '"' + (k.used ? " checked" : "") + ">" + esc(t("markUsed")) + "</label></div></div></details>";
+    }).join("");
+    return '<div class="sec-h"><h2>' + esc(t("kitT")) + '</h2><p class="muted small">' + esc(t("kitSub")) + '</p></div><div class="seg" role="group">' + seg + '</div>' +
+      '<div class="kstat"><div style="background:var(--ok-soft);color:var(--ok)"><b>' + kc.ok + "</b><span>" + esc(t("stOk")) + '</span></div><div style="background:var(--amber-soft);color:var(--amber)"><b>' + kc.soon + "</b><span>" + esc(t("stSoon")) + '</span></div><div style="background:var(--danger-soft);color:var(--danger)"><b>' + kc.bad + "</b><span>" + esc(t("stBad")) + "</span></div></div>" +
+      '<button type="button" class="btn wa" data-refill>' + icon("whats", 20) + esc(t("refill")) + '</button><div class="stack" style="gap:8px">' + items + "</div>";
+  }
+  function refillList() {
+    return versionObj().items.filter(function (id) { var s = itemStatus(id); return s === "used" || s === "exp" || s === "soon"; });
+  }
+  function refillMsg() {
+    var v = versionObj(), list = refillList();
+    var lines = [S.msgRefillHead[0] + " (" + v.n[0] + ")"];
+    if (state.veh.org) lines.push(S.fOrg[0] + ": " + state.veh.org);
+    if (state.veh.no) lines.push(S.fVeh[0] + ": " + state.veh.no);
+    if (state.veh.driver) lines.push(S.repDriver[0] + ": " + state.veh.driver);
+    lines.push("");
+    list.forEach(function (id) { var s = itemStatus(id); lines.push("• " + ITEMS[id].n[0] + " (" + ITEMS[id].n[1] + ") — " + S[s === "used" ? "sUsed" : s === "exp" ? "sExp" : "sSoon"][0]); });
+    return lines.join("\n");
+  }
+  function waHref(msg, num) { num = String(num || "").replace(/\D/g, ""); return "https://wa.me/" + num + "?text=" + encodeURIComponent(msg); }
+  function viewRefill() {
+    var list = refillList();
+    if (!list.length) return head(t("refillT")) + '<div class="card"><p>' + esc(t("refillNone")) + "</p></div>";
+    var msg = refillMsg();
+    return head(t("refillT")) + '<div class="msgbox" id="pmsg">' + esc(msg) + '</div><div class="btns"><a class="btn wa" href="' + esc(waHref(msg, CONFIG.pharmacyWhatsApp)) + '" target="_blank" rel="noopener">' + icon("whats", 20) + esc(t("wa")) + '</a><button type="button" class="btn secondary" data-copy>' + icon("copy", 18) + esc(t("copy")) + '</button><button type="button" class="btn secondary" data-refilled>' + icon("check", 18) + esc(t("refilled")) + '</button></div><p class="small muted">' + esc(CONFIG.pharmacyWhatsApp ? "+" + CONFIG.pharmacyWhatsApp : CONFIG.pharmacyDisplay) + "</p>";
+  }
+
+  function viewReport() {
+    var v = state.view, g = guide(v.g), pax = v.pax ? paxById(v.pax) : null;
+    return head(t("repT")) + '<p class="muted small">' + esc(t("repSub")) + '</p><form class="form card" id="repform">' +
+      '<div class="field"><span class="lab">' + esc(t("repType")) + "</span><b>" + esc(g ? tr(g.t) : "") + "</b>" + (v.dur ? '<span class="small">' + esc(t("lasted").replace("{t}", v.dur)) + "</span>" : "") + "</div>" +
+      '<div class="field"><label for="r-pax">' + esc(t("repPax")) + '</label><select id="r-pax" name="pax"><option value="">—</option>' + state.pax.map(function (p) { return '<option value="' + p.id + '"' + (pax && pax.id === p.id ? " selected" : "") + ">" + esc(p.name) + "</option>"; }).join("") + "</select></div>" +
+      '<div class="field"><label for="r-what">' + esc(t("repWhat")) + '</label><textarea id="r-what" name="what" maxlength="800"></textarea></div>' +
+      '<div class="field"><label for="r-done">' + esc(t("repDone")) + '</label><textarea id="r-done" name="done" maxlength="800"></textarea></div>' +
+      '<div class="chips"><label><input type="checkbox" name="amb">' + esc(t("rep997")) + '</label><label><input type="checkbox" name="guard">' + esc(t("repGuard")) + "</label></div>" +
+      '<button type="submit" class="btn primary">' + esc(t("repMake")) + "</button></form>" + (v.msg ? '<div class="msgbox" id="pmsg">' + esc(v.msg) + '</div><div class="btns"><a class="btn wa" href="' + esc(waHref(v.msg, "")) + '" target="_blank" rel="noopener">' + icon("whats", 20) + esc(t("wa")) + '</a><button type="button" class="btn secondary" data-copy>' + icon("copy", 18) + esc(t("copy")) + "</button></div>" : "");
+  }
+
+  function viewSos() {
+    var nums = [["997", "n997"], ["911", "n911"], ["937", "n937"]].map(function (n) { return '<div class="numrow"><span class="n">' + n[0] + "</span><div><b>" + esc(t(n[1])) + '</b></div><a class="callbtn" href="tel:' + n[0] + '">' + icon("phone", 18) + esc(t("call")) + "</a></div>"; }).join("");
+    var gs = state.pax.filter(function (p) { return p.gphone; }).map(function (p) { return '<div class="numrow"><span class="avatar">' + esc(p.name.trim().charAt(0)) + '</span><div><b>' + esc(p.name) + '</b><span class="small muted">' + esc(p.gname || "") + ' <span class="num">' + esc(p.gphone) + '</span></span></div><a class="callbtn ghost" href="' + esc(telHref(p.gphone)) + '">' + icon("phone", 18) + "</a></div>"; }).join("");
+    var mc = state.pax.map(function (p) { return '<button type="button" class="btn secondary sm" data-medic="' + p.id + '">' + icon("card", 16) + esc(p.name) + "</button>"; }).join("");
+    return '<div class="sec-h"><h2>' + esc(t("sosT")) + '</h2><p class="muted small">' + esc(t("sosSub")) + '</p></div><div class="stack" style="gap:8px">' + nums + '</div><div class="tip"><span class="ic">' + icon("alert", 22) + "</span><p>" + esc(t("sayAmb")) + "</p></div>" +
+      (gs ? '<section class="stack"><h3>' + esc(t("guardians")) + '</h3><div class="stack" style="gap:8px">' + gs + "</div></section>" : "") +
+      (mc ? '<section class="card stack"><h3>' + icon("card", 18) + " " + esc(t("medicCards")) + '</h3><div class="row wrap" style="gap:6px">' + mc + "</div></section>" : "");
+  }
+
+  /* ---------- overlays ---------- */
+  function openFull(html) { layer.innerHTML = '<div class="full" role="dialog" aria-modal="true"><div class="row between"><span class="small" style="color:#555">' + esc(t("app")) + '</span><button type="button" class="closem" data-closelayer>' + esc(t("close")) + '</button></div><div class="mid">' + html + "</div></div>"; layer.querySelector("[data-closelayer]").focus(); }
+  function bigText(arr, ic, col, bg) {
+    return (ic ? '<div class="icbig" style="background:' + bg + ";color:" + col + '">' + icon(ic, 72) + "</div>" : "") + '<p class="big" lang="ar">' + esc(arr[0]) + '</p><p class="en" lang="en">' + esc(arr[1]) + "</p>" + (state.lang === "ur" ? '<p class="ur" lang="ur">' + esc(arr[2]) + "</p>" : "");
+  }
+  function openMedic(id) {
+    var p = paxById(id); if (!p) return;
+    var d = DIS.filter(function (x) { return x.id === p.dis; })[0], cm = COMM.filter(function (x) { return x.id === p.comm; })[0];
+    var conds = (p.conds || []).map(function (c) { var o = CONDS.filter(function (x) { return x.id === c; })[0]; return o ? o.ar + " · " + o.en : ""; }).join("، ");
+    var rows = [["الاسم · Name", p.name], ["نوع الإعاقة · Disability", d ? d.ar + " · " + d.en : ""], ["التواصل · Communication", cm ? cm.t[0] + " · " + cm.t[1] : ""], ["الحالات · Conditions", conds], ["الحساسية · Allergies", p.allergy], ["الأدوية · Medicines", p.meds], ["خطة الطوارئ · Emergency plan", p.plan], ["ولي الأمر · Guardian", (p.gname || "") + (p.gphone ? "  " + p.gphone : "")]];
+    layer.innerHTML = '<div class="full medic" role="dialog" aria-modal="true" dir="rtl"><div class="mh"><div><b>بطاقة طبية · Medical card</b><div>' + esc(state.veh.org || t("app")) + '</div></div><button type="button" class="closem" style="background:#fff;color:#B0281B" data-closelayer>' + esc(t("close")) + "</button></div><table>" + rows.filter(function (r) { return (r[1] || "").trim(); }).map(function (r) { return "<tr><th>" + esc(r[0]) + "</th></tr><tr><td>" + esc(r[1]) + "</td></tr>"; }).join("") + "</table>" + (p.wheel ? '<p style="font-weight:700">يستخدم كرسيا متحركا · Wheelchair user</p>' : "") + "</div>";
+    layer.querySelector("[data-closelayer]").focus();
+  }
+  function toast(msg) { var d = document.createElement("div"); d.className = "toast"; d.setAttribute("role", "status"); d.textContent = msg; document.body.appendChild(d); setTimeout(function () { d.remove(); }, 1800); }
+  function copyText(el) { var txt = el.textContent; var fb = function () { var r = document.createRange(); r.selectNodeContents(el); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); }; try { navigator.clipboard.writeText(txt).then(function () { toast(t("copied")); }, fb); } catch (e) { fb(); } }
+
+  function openLang(first) {
+    layer.innerHTML = '<div class="overlay" role="dialog" aria-modal="true"><div class="sheet"><h2>' + (first ? "اختر اللغة · Choose language · زبان" : esc(t("chooseLang"))) + '</h2><div class="langs">' + LANGS.map(function (l) { return '<button type="button" data-lang="' + l.id + '" aria-pressed="' + (state.lang === l.id) + '"><b>' + esc(l.name) + "</b><span>" + esc(l.en) + "</span></button>"; }).join("") + "</div></div></div>";
+  }
+  function openOnboard() {
+    var step = state.onboard, body;
+    if (step === 9) {
+      body = "<h2>" + esc(t("agT")) + '</h2><ul class="agree"><li>' + icon("bulb", 20) + "<span>" + esc(t("ag1")) + "</span></li><li>" + icon("siren", 20) + "<span>" + esc(t("ag2")) + "</span></li><li>" + icon("lock", 20) + "<span>" + esc(t("ag3")) + "</span></li></ul>" + (CONFIG.reviewedBy ? "" : '<div class="banner amber">' + icon("alert", 16) + "<span>" + esc(t("pending")) + "</span></div>") + '<button type="button" class="btn primary" data-obagree>' + esc(t("agBtn")) + "</button>";
+    } else {
+      body = "<h2>" + esc(t("obVehT")) + '</h2><p class="small muted">' + esc(t("obVehSub")) + '</p><form class="form" id="obform"><div class="field"><span class="lab">' + esc(t("whichKit")) + '</span><div class="seg">' + VERSIONS.map(function (x) { return '<button type="button" data-version="' + x.id + '" aria-pressed="' + (x.id === state.version) + '">' + esc(tr(x.n)) + "</button>"; }).join("") + "</div></div>" +
+        '<div class="field"><label for="o-org">' + esc(t("fOrg")) + '</label><input type="text" id="o-org" name="org" maxlength="80" value="' + esc(state.veh.org) + '"></div><div class="field"><label for="o-no">' + esc(t("fVeh")) + '</label><input type="text" id="o-no" name="no" maxlength="30" value="' + esc(state.veh.no) + '"></div><div class="field"><label for="o-dr">' + esc(t("fDriver")) + '</label><input type="text" id="o-dr" name="driver" maxlength="60" value="' + esc(state.veh.driver) + '"></div>' +
+        '<div class="btns"><button type="submit" class="btn primary">' + esc(t("begin")) + '</button><button type="button" class="btn secondary" data-obskip>' + esc(t("skip")) + "</button></div></form>";
+    }
+    layer.innerHTML = '<div class="overlay" role="dialog" aria-modal="true"><div class="sheet">' + body + "</div></div>";
+  }
+  function finishOnboard() { state.onboard = 0; store("onboarded", true); layer.innerHTML = ""; render(); }
+
+  function backupCode() { return "MF1:" + btoa(unescape(encodeURIComponent(JSON.stringify({ v: 1, lang: state.lang, version: state.version, veh: state.veh, pax: state.pax, kit: state.kit, reports: state.reports })))); }
+  function str(v, n) { return String(v == null ? "" : v).slice(0, n); }
+  function restore(code) {
+    try {
+      var raw = String(code || "").trim(); if (raw.indexOf("MF1:") !== 0) return false;
+      var d = JSON.parse(decodeURIComponent(escape(atob(raw.slice(4).replace(/\s+/g, ""))))); if (!d || typeof d !== "object") return false;
+      var condIds = CONDS.map(function (c) { return c.id; });
+      state.pax = (Array.isArray(d.pax) ? d.pax : []).slice(0, 60).map(function (p, i) { return { id: Number(p.id) || Date.now() + i, name: str(p.name, 80), dis: DIS.some(function (x) { return x.id === p.dis; }) ? p.dis : "", wheel: !!p.wheel, comm: COMM.some(function (x) { return x.id === p.comm; }) ? p.comm : "", conds: (Array.isArray(p.conds) ? p.conds : []).filter(function (c) { return condIds.indexOf(c) !== -1; }), allergy: str(p.allergy, 80), meds: str(p.meds, 600), plan: str(p.plan, 600), notes: str(p.notes, 600), gname: str(p.gname, 80), gphone: str(p.gphone, 30) }; }).filter(function (p) { return p.name; });
+      var kit = {}; if (d.kit && typeof d.kit === "object") Object.keys(ITEMS).forEach(function (k) { var x = d.kit[k]; if (x) kit[k] = { used: !!x.used, exp: /^\d{4}-\d{2}-\d{2}$/.test(x.exp || "") ? x.exp : "" }; });
+      state.kit = kit;
+      state.reports = (Array.isArray(d.reports) ? d.reports : []).slice(0, 30).filter(function (r) { return guide(r.g); }).map(function (r) { return { g: r.g, pax: str(r.pax, 80), amb: !!r.amb, ts: Number(r.ts) || Date.now() }; });
+      if (VERSIONS.some(function (v) { return v.id === d.version; })) state.version = d.version;
+      if (LI[d.lang] !== undefined) state.lang = d.lang;
+      if (d.veh) state.veh = { org: str(d.veh.org, 80), no: str(d.veh.no, 30), driver: str(d.veh.driver, 60) };
+      ["pax", "kit", "reports", "version", "lang", "veh"].forEach(function (k) { store(k, state[k]); }); store("onboarded", true); store("agreed", Date.now()); keepStorage();
+      return true;
+    } catch (e) { return false; }
+  }
+  function deleteAll() {
+    KEYS.forEach(function (k) { try { localStorage.removeItem("mf-" + k); } catch (e) {} });
+    state.pax = []; state.kit = {}; state.reports = []; state.trip = { phase: "idle", checks: [], start: 0, last: false }; state.veh = { org: "", no: "", driver: "" }; state.version = "vehicle"; state.view = null; state.tab = "home"; state.large = false; document.body.classList.remove("large");
+    var msg = t("delDone"); state.lang = null; applyLang(); render(); openLang(true); toast(msg);
+  }
+  function openSettings() {
+    layer.innerHTML = '<div class="overlay" role="dialog" aria-modal="true"><div class="sheet"><div class="row between"><h2>' + esc(t("setT")) + '</h2><button type="button" class="btn secondary sm" data-closelayer>' + esc(t("close")) + "</button></div>" +
+      '<form class="card form" id="vehform"><h3>' + esc(t("setVeh")) + '</h3><div class="field"><label for="s-org">' + esc(t("fOrg")) + '</label><input type="text" id="s-org" name="org" maxlength="80" value="' + esc(state.veh.org) + '"></div><div class="field"><label for="s-no">' + esc(t("fVeh")) + '</label><input type="text" id="s-no" name="no" maxlength="30" value="' + esc(state.veh.no) + '"></div><div class="field"><label for="s-dr">' + esc(t("fDriver")) + '</label><input type="text" id="s-dr" name="driver" maxlength="60" value="' + esc(state.veh.driver) + '"></div><button type="submit" class="btn secondary sm">' + esc(t("save")) + "</button></form>" +
+      '<div class="card"><div class="chips"><label><input type="checkbox" id="bigtext"' + (state.large ? " checked" : "") + ">" + esc(t("bigText")) + "</label></div></div>" +
+      '<section class="card stack"><h3>' + icon("lock", 18) + " " + esc(t("privT")) + "</h3><p>" + esc(t("privB")) + "</p>" + (STORE_OK ? "" : '<div class="banner red">' + icon("alert", 16) + "<span>" + esc(t("storBad")) + "</span></div>") + "</section>" +
+      '<section class="card stack"><h3>' + esc(t("bkT")) + '</h3><p class="small muted">' + esc(t("bkB")) + '</p><div class="codebox" id="bkcode">' + esc(backupCode()) + '</div><button type="button" class="btn secondary sm" data-bkcopy>' + icon("copy", 18) + esc(t("bkCopy")) + "</button>" +
+      '<form class="form" id="rsform"><div class="field"><label class="sr" for="rscode">' + esc(t("rsPh")) + '</label><textarea id="rscode" name="code" dir="ltr" placeholder="' + esc(t("rsPh")) + '"></textarea></div><p class="small" id="rsmsg" role="status" style="color:var(--danger)" hidden></p><button type="submit" class="btn secondary sm">' + esc(t("rsBtn")) + "</button></form></section>" +
+      '<p class="small muted">' + esc(CONFIG.reviewedBy ? t("reviewed").replace("{name}", CONFIG.reviewedBy).replace("{date}", CONFIG.reviewedOn) : t("pending")) + " " + esc(t("foot")) + "</p>" +
+      '<button type="button" class="btn secondary" style="color:var(--danger);border-color:var(--danger)" data-delask>' + esc(t("delT")) + '</button><div class="card stack" id="delconfirm" hidden><p>' + esc(t("delAsk")) + '</p><div class="btns"><button type="button" class="btn danger" data-delyes>' + esc(t("delYes")) + '</button><button type="button" class="btn secondary" data-closelayer>' + esc(t("cancel")) + "</button></div></div></div></div>";
+  }
+
+  /* ---------- events ---------- */
+  document.addEventListener("click", function (e) {
+    var el = e.target.closest("button, a"); if (!el) return;
+    var d = el.dataset;
+    if (d.lang) { state.lang = d.lang; store("lang", d.lang); layer.innerHTML = ""; applyLang(); render(); if (!load("onboarded", false)) { state.onboard = load("agreed", 0) ? 1 : 9; openOnboard(); } return; }
+    if (el.id === "langbtn") return openLang(false);
+    if (el.id === "setbtn") return openSettings();
+    if (d.closelayer !== undefined) { layer.innerHTML = ""; return; }
+    if (d.obagree !== undefined) { store("agreed", Date.now()); state.onboard = 1; return openOnboard(); }
+    if (d.obskip !== undefined) return finishOnboard();
+    if (d.version) { state.version = d.version; store("version", d.version); if (state.onboard) return openOnboard(); return render(); }
+    if (d.tab) return go(d.tab);
+    if (d.back !== undefined) { var bv = state.view; if (bv && bv.name === "report" && bv.from) { state.view = bv.from; return render(); } if (bv && bv.name === "paxEdit" && bv.id) { state.view = { name: "paxShow", id: bv.id }; return render(); } state.view = null; return render(); }
+    if (d.open === "check") return open({ name: "check" });
+    if (d.guide) { if (state.tab !== "home" && !d.gp) { state.tab = "home"; renderTabs(); } return open({ name: "guide", id: d.guide, pax: d.gp || (state.pax.length === 1 && state.pax[0].conds.some(function (c) { var o = CONDS.filter(function (x) { return x.id === c; })[0]; return o && o.g === d.guide; }) ? state.pax[0].id : "") }); }
+    if (d.gpax !== undefined) { state.view.pax = d.gpax; return render(); }
+    if (d.tstart !== undefined) { state.view.tStart = Date.now(); state.view.tEnd = 0; return render(); }
+    if (d.tstop !== undefined) { state.view.tEnd = Date.now(); return render(); }
+    if (d.report !== undefined) { var gv = state.view; return open({ name: "report", g: gv.id, pax: gv.pax, dur: gv.tStart ? mmss((gv.tEnd || Date.now()) - gv.tStart) : "", from: gv }); }
+    if (d.item) { go("kit"); var det = document.getElementById("item-" + d.item); if (det) { det.open = true; det.scrollIntoView({ block: "center" }); } return; }
+    if (d.starttrip !== undefined) { state.trip.phase = "on"; state.trip.start = Date.now(); state.trip.last = false; store("trip", state.trip); state.view = null; return render(); }
+    if (d.endtrip !== undefined) return open({ name: "check" });
+    if (d.confirmend !== undefined) { state.trip = { phase: "idle", checks: [], start: 0, last: false }; store("trip", state.trip); state.trips.n++; state.trips.d = today; store("trips", state.trips); state.view = null; render(); return toast(t("tripEnded")); }
+    if (d.paxedit !== undefined) return open({ name: "paxEdit", id: d.paxedit });
+    if (d.paxshow) return open({ name: "paxShow", id: d.paxshow });
+    if (d.paxrm) { state.pax = state.pax.filter(function (p) { return String(p.id) !== d.paxrm; }); store("pax", state.pax); state.view = null; return render(); }
+    if (d.medic) return openMedic(d.medic);
+    if (d.card) { var c = CARDS.filter(function (x) { return x.id === d.card; })[0]; return openFull(bigText(c.t, c.ic, c.col, c.bg)); }
+    if (d.pain) { var n = d.pain; return openFull('<div class="icbig" style="background:#FCE5E1;color:#B0281B;font-family:var(--display);font-size:64px">' + n + "</div>" + bigText([S.painOf[0].replace("{n}", n), S.painOf[1].replace("{n}", n), S.painOf[2].replace("{n}", n)])); }
+    if (d.bodyp) { var b = BODY[+d.bodyp]; return openFull(bigText(["الألم في " + b[0].replace(/ي$/, "ي"), "It hurts: " + b[1].toLowerCase(), "درد: " + b[2]], "bolt", "#B0281B", "#FCE5E1")); }
+    if (d.refill !== undefined) return open({ name: "refill" });
+    if (d.refilled !== undefined) { refillList().forEach(function (id) { var k = state.kit[id] || {}; k.used = false; if (itemStatus(id) !== "used") k.exp = ""; state.kit[id] = k; }); store("kit", state.kit); state.view = null; state.tab = "kit"; renderTabs(); return render(); }
+    if (d.copy !== undefined) return copyText(document.getElementById("pmsg"));
+    if (d.bkcopy !== undefined) return copyText(document.getElementById("bkcode"));
+    if (d.delask !== undefined) { document.getElementById("delconfirm").hidden = false; el.hidden = true; return; }
+    if (d.delyes !== undefined) return deleteAll();
+  });
+  document.addEventListener("change", function (e) {
+    var el = e.target, d = el.dataset || {};
+    if (d.tc !== undefined) { var i = +d.tc, a = state.trip.checks, p = a.indexOf(i); if (el.checked && p === -1) a.push(i); if (!el.checked && p !== -1) a.splice(p, 1); store("trip", state.trip); el.closest(".check").classList.toggle("on", el.checked); var all = a.length === CHECKS.length; document.getElementById("gobtn").style.display = all ? "" : "none"; document.getElementById("gobtn2").style.display = all ? "none" : ""; }
+    if (d.lastcheck !== undefined) { state.trip.last = el.checked; store("trip", state.trip); el.closest(".check").classList.toggle("on", el.checked); view.querySelector("[data-confirmend]").disabled = !el.checked; }
+    if (d.exp) { var k = state.kit[d.exp] || {}; k.exp = el.value; state.kit[d.exp] = k; store("kit", state.kit); keepStorage(); var det = el.closest("details"); render(); var nd = document.getElementById(det.id); if (nd) nd.open = true; }
+    if (d.used) { var k2 = state.kit[d.used] || {}; k2.used = el.checked; state.kit[d.used] = k2; store("kit", state.kit); var det2 = el.closest("details"); render(); var nd2 = document.getElementById(det2.id); if (nd2) nd2.open = true; }
+    if (el.id === "bigtext") { state.large = el.checked; store("large", state.large); document.body.classList.toggle("large", state.large); }
+  });
+  document.addEventListener("submit", function (e) {
+    var f = e.target, fd = new FormData(f);
+    if (f.id === "paxform") {
+      e.preventDefault();
+      var name = String(fd.get("name") || "").trim().slice(0, 80); if (!name) { document.getElementById("p-name").focus(); return; }
+      var id = state.view.id ? Number(state.view.id) : Date.now();
+      var p = { id: id, name: name, dis: String(fd.get("dis") || ""), wheel: !!fd.get("wheel"), comm: String(fd.get("comm") || ""), conds: fd.getAll("conds").map(String), allergy: str(fd.get("allergy"), 80).trim(), meds: str(fd.get("meds"), 600).trim(), plan: str(fd.get("plan"), 600).trim(), notes: str(fd.get("notes"), 600).trim(), gname: str(fd.get("gname"), 80).trim(), gphone: str(fd.get("gphone"), 30).trim() };
+      var ix = state.pax.findIndex(function (x) { return x.id === id; }); if (ix === -1) state.pax.push(p); else state.pax[ix] = p;
+      store("pax", state.pax); keepStorage(); state.view = { name: "paxShow", id: id }; render(); toast(t("saved")); return;
+    }
+    if (f.id === "repform") {
+      e.preventDefault();
+      var v = state.view, g = guide(v.g), pax = paxById(fd.get("pax"));
+      var lines = [t("repT") + " — " + (g ? tr(g.t) : "")];
+      lines.push(t("repTime") + ": " + new Date().toLocaleString(state.lang === "ar" ? "ar-SA-u-nu-latn-ca-gregory" : state.lang === "ur" ? "ur-PK" : "en-GB"));
+      if (pax) lines.push(t("repPax") + ": " + pax.name);
+      if (state.veh.org) lines.push(t("fOrg") + ": " + state.veh.org);
+      if (state.veh.no) lines.push(t("repVehicle") + ": " + state.veh.no);
+      if (state.veh.driver) lines.push(t("repDriver") + ": " + state.veh.driver);
+      if (v.dur) lines.push(t("lasted").replace("{t}", v.dur));
+      var what = String(fd.get("what") || "").trim(), done = String(fd.get("done") || "").trim();
+      if (what) lines.push("", t("repWhat") + " " + what);
+      if (done) lines.push(t("repDone") + " " + done);
+      lines.push("", t("rep997") + ": " + (fd.get("amb") ? t("yes") : t("no")), t("repGuard") + ": " + (fd.get("guard") ? t("yes") : t("no")));
+      v.msg = lines.join("\n");
+      state.reports.unshift({ g: v.g, pax: pax ? pax.name : "", amb: !!fd.get("amb"), ts: Date.now() }); state.reports = state.reports.slice(0, 30); store("reports", state.reports);
+      render(); var m = document.getElementById("pmsg"); if (m) m.scrollIntoView({ block: "center" }); return;
+    }
+    if (f.id === "obform") { e.preventDefault(); state.veh = { org: str(fd.get("org"), 80).trim(), no: str(fd.get("no"), 30).trim(), driver: str(fd.get("driver"), 60).trim() }; store("veh", state.veh); return finishOnboard(); }
+    if (f.id === "vehform") { e.preventDefault(); state.veh = { org: str(fd.get("org"), 80).trim(), no: str(fd.get("no"), 30).trim(), driver: str(fd.get("driver"), 60).trim() }; store("veh", state.veh); toast(t("saved")); return; }
+    if (f.id === "rsform") { e.preventDefault(); if (restore(fd.get("code"))) { layer.innerHTML = ""; state.view = null; applyLang(); render(); toast(t("rsOk")); } else { var rm = document.getElementById("rsmsg"); rm.textContent = t("rsBad"); rm.hidden = false; } }
+  });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && layer.innerHTML && state.lang && !state.onboard) layer.innerHTML = ""; });
+
+  applyLang();
+  render();
+  if (!state.lang) openLang(true);
+})();
+</script>
+
+</body></html>
